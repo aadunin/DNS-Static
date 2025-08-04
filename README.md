@@ -1,5 +1,7 @@
 # DNS Static for MikroTik
 
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+
 Автоматизированный проект для генерации MikroTik `.rsc` скриптов на основе актуального списка доменов из [AntiZapret](https://github.com/AntiZapret/antizapret).
 
 ## 📦 Возможности
