@@ -4,84 +4,64 @@ on:
   push:
     branches: [ main ]
   schedule:
-    # каждый день в 00:00 UTC
-    - cron: "0 0 * * *"
-    # Ручной запуск при необходимости
+    - cron: "0 0 * * *" # каждый день в 00:00 UTC
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      # 1) Клонируем репозиторий и оставляем креды для пуша
-      - uses: actions/checkout@v3
-        with:
-          persist-credentials: true
 
-      # 2) Скачиваем актуальный hosts из оригинального репо
-      - name: Fetch original hosts
-        run: |
-          curl -sSL -o hosts \
-            https://raw.githubusercontent.com/pumPCin/AntiZapret/main/hosts
+    # 1) Клонируем репозиторий
+    - uses: actions/checkout@v3
+      with:
+        persist-credentials: true
 
-      # 3) Генерируем mikrotik/update-hosts.rsc
-      - name: Generate update-hosts.rsc
-        run: |
-          mkdir -p mikrotik
-          # Удаляем старые записи из address-list
-          echo "/ip dns static remove [find address-list=\"autohost\"]" \
-            > mikrotik/update-hosts.rsc
+    # 2) Скачиваем свежий hosts из AntiZapret
+    - name: Fetch latest hosts
+      run: |
+        curl -sSL -o hosts https://raw.githubusercontent.com/pumPCin/AntiZapret/main/hosts
 
-          declare -A seen
-          cnt=0
+    # 3) Скачиваем предыдущий snapshot из своего репо
+    - name: Fetch previous hosts snapshot
+      run: |
+        curl -sSL -o old-hosts https://raw.githubusercontent.com/aadunin/DNS-Static/main/hosts || touch old-hosts
 
-          # Проходим по всем активным строкам hosts
-          while read -r ip rest; do
-            for d in $rest; do
+    # 4) Сравниваем и прерываем workflow, если изменений нет
+    - name: Compare hosts
+      run: |
+        if cmp -s hosts old-hosts; then
+          echo "::notice ::No changes in AntiZapret hosts, skipping update"
+          exit 0
+        fi
 
-              # Пропускаем localhost / broadcasthost
-              if [[ "$ip" == "127.0.0.1" && \
-                   ( "$d" == "local" || "$d" == "localhost" || "$d" == "localhost.localdomain" ) ]]; then
-                continue
-              fi
-              if [[ "$ip" == "255.255.255.255" && "$d" == "broadcasthost" ]]; then
-                continue
-              fi
+    # 5) Генерируем mikrotik/update-hosts.rsc
+    - name: Generate update-hosts.rsc
+      run: |
+        mkdir -p mikrotik
+        echo "/ip dns static remove [find address-list=\"autohost\"]" > mikrotik/update-hosts.rsc
+        declare -A seen
+        cnt=0
+        while read -r ip rest; do
+          for d in $rest; do
+            if [[ "$ip" == "127.0.0.1" && ( "$d" == "local" || "$d" == "localhost" || "$d" == "localhost.localdomain" ) ]]; then continue; fi
+            if [[ "$ip" == "255.255.255.255" && "$d" == "broadcasthost" ]]; then continue; fi
+            if [[ "$ip" == "0.0.0.0" ]]; then ip_addr="192.0.2.1"; else ip_addr="$ip"; fi
+            key="$ip_addr|$d"
+            if [[ -n "${seen[$key]}" ]]; then continue; fi
+            seen[$key]=1
+            echo "/ip dns static add name=$d address=$ip_addr ttl=1d address-list=autohost" >> mikrotik/update-hosts.rsc
+            cnt=$((cnt+1))
+          done
+        done < <(grep -Ev '^(#|$)' hosts)
+        echo "/log info \"[update-hosts] Added $cnt entries\"" >> mikrotik/update-hosts.rsc
+        echo ":: Generated $cnt unique entries"
 
-              # Заменяем 0.0.0.0 на TEST-NET-1 blackhole, чтобы RouterOS не ругался
-              if [[ "$ip" == "0.0.0.0" ]]; then
-                ip_addr="192.0.2.1"
-              else
-                ip_addr="$ip"
-              fi
-
-              # Уникальность по "IP|домен"
-              key="$ip_addr|$d"
-              if [[ -n "${seen[$key]}" ]]; then
-                continue
-              fi
-              seen[$key]=1
-
-              # Добавляем запись в DNS Static с привязкой в address-list
-              echo "/ip dns static add name=$d address=$ip_addr ttl=1d address-list=autohost" \
-                >> mikrotik/update-hosts.rsc
-              cnt=$((cnt+1))
-            done
-          done < <(grep -Ev '^(#|$)' hosts)
-
-          # Логируем результат в конце скрипта
-          echo "/log info \"[update-hosts] Added $cnt entries\"" \
-            >> mikrotik/update-hosts.rsc
-
-          # И сразу выводим в лог Actions
-          echo ":: Generated $cnt unique entries"
-
-      # 4) Коммитим и пушим микротик-скрипт обратно в ваш форк
-      - name: Commit & Push update-hosts.rsc
-        run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          git add mikrotik/update-hosts.rsc
-          git diff --quiet --cached || git commit -m "Rebuild Mikrotik RSC: $cnt entries"
-          git push origin main
+    # 6) Коммитим и пушим .rsc и новый hosts
+    - name: Commit & Push update-hosts.rsc and hosts snapshot
+      run: |
+        git config user.name "github-actions"
+        git config user.email "actions@github.com"
+        git add mikrotik/update-hosts.rsc hosts
+        git diff --quiet --cached || git commit -m "Rebuild Mikrotik RSC: $cnt entries"
+        git push origin main
