@@ -24,18 +24,14 @@
 :if ([/file find name="dns-static.rsc"] != "") do={
     :set oldSize [:len [/file get dns-static.rsc contents]]
 }
-
 /tool fetch url="https://raw.githubusercontent.com/aadunin/DNS-Static/main/mikrotik/dns-static.rsc" dst-path=dns-static.rsc mode=https
-
 :local newSize [:len [/file get dns-static.rsc contents]]
-
 :if ($oldSize != $newSize) do={
     /import file-name=dns-static.rsc
     :log info "DNS Static: Import complete"
 } else={
     :log info "DNS Static: No changes, skipping import"
 }
-
    ```
 
 ## 🔄 Автоматизация
