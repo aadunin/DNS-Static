@@ -1,4 +1,5 @@
 # localhost name resolution is handled within DNS itself.
+127.0.0.1 test.local
 127.0.0.1 local
 127.0.0.1 localhost
 127.0.0.1 localhost.localdomain
