@@ -13,10 +13,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Install curl
+      - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y curl
+          sudo apt-get install -y curl gh
 
       - name: Download hosts
         run: |
@@ -32,7 +32,7 @@ jobs:
           fi
 
       - name: Generate RSC
-        run: bash scripts/generate-rsc.sh
+        run: bash -xe scripts/generate-rsc.sh
 
       - name: Commit & Tag
         if: env.cnt != '0'
@@ -44,23 +44,25 @@ jobs:
           git tag "$TAG"
           git push origin "$TAG"
 
-      - name: Create GitHub Release
+      - name: Create GitHub Release (empty)
+        if: env.cnt == '0'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="v$(date +'%Y%m%d')"
+          gh release create "$TAG" \
+            --title "DNS Static $TAG" \
+            --notes "Нет новых записей. RSC-файл не изменился."
+
+      - name: Create GitHub Release with RSC
+        if: env.cnt != '0'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           DATE=$(date +'%Y%m%d')
           TAG="v$DATE"
-
-          if [[ "${cnt:-0}" -eq 0 ]]; then
-            CHANGELOG="Нет новых записей. RSC-файл не изменился."
-            echo "::notice ::cnt=0 — пропускаем публикацию релиза"
-            gh release create "$TAG" \
-              --title "DNS Static $TAG" \
-              --notes "$CHANGELOG"
-          else
-            DOMAINS=$(sed 's/^/• /' mikrotik/new-domains.txt)
-            CHANGELOG="Автоматическая сборка MikroTik RSC\nДобавлено $cnt записей\n\n$DOMAINS"
-            gh release create "$TAG" mikrotik/dns-static.rsc \
-              --title "DNS Static $TAG" \
-              --notes "$CHANGELOG"
-          fi
+          DOMAINS=$(sed 's/^/• /' mikrotik/new-domains.txt)
+          CHANGELOG="Автоматическая сборка MikroTik RSC\nДобавлено $cnt записей\n\n$DOMAINS"
+          gh release create "$TAG" mikrotik/dns-static.rsc \
+            --title "DNS Static $TAG" \
+            --notes "$CHANGELOG"
