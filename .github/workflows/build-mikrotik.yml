@@ -8,8 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      cnt: 0
 
     steps:
       - name: Checkout repository
@@ -37,7 +35,7 @@ jobs:
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add mikrotik/dns-static.rsc hosts CHANGELOG.md
-          git commit -m "Rebuild Mikrotik RSC: $cnt entries"
+          git commit -m "Rebuild Mikrotik RSC: ${cnt:-0} entries"
           DATE=$(date +'%Y%m%d')
           TAG="v$DATE"
           git tag $TAG
@@ -50,8 +48,7 @@ jobs:
           DATE=$(date +'%Y%m%d')
           TAG="v$DATE"
           DOMAINS=$(cat mikrotik/new-domains.txt | sed 's/^/• /')
-          CHANGELOG="Автоматическая сборка MikroTik RSC\nДобавлено $cnt записей\n\n$DOMAINS"
-
+          CHANGELOG="Автоматическая сборка MikroTik RSC\nДобавлено ${cnt:-0} записей\n\n$DOMAINS"
           gh release create $TAG mikrotik/dns-static.rsc \
             --title "DNS Static $TAG" \
             --notes "$CHANGELOG"
