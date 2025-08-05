@@ -31,19 +31,16 @@ done < <(grep -Ev '^(#|$)' hosts)
 echo "cnt=$cnt" >> "$GITHUB_ENV"
 
 # Защита от пустого cnt — завершение до любых операций
-if [[ -z "${cnt:-}" || "$cnt" -eq 0 ]]; then
+if [[ "$cnt" -eq 0 ]]; then
   echo "/log info \"[update-hosts] No new domains found\"" >> "$output"
   echo "No new domains found. Skipping RSC generation."
   exit 0
 fi
 
-# Лог MikroTik
+# Продолжение только если cnt > 0
 echo "/log info \"[update-hosts] Added $cnt entries\"" >> "$output"
-
-# Сохраняем список новых доменов
 grep '^/ip dns static add name=' "$output" > mikrotik/new-domains.txt
 
-# Обновляем CHANGELOG.md
 touch CHANGELOG.md
 DATE=$(date +'%Y-%m-%d')
 TAG="v$(date +'%Y%m%d')"
@@ -55,6 +52,5 @@ TAG="v$(date +'%Y%m%d')"
   echo ""
 } >> CHANGELOG.md
 
-# Коммитим changelog
 git add CHANGELOG.md
 git commit -m "Update CHANGELOG for $TAG"
