@@ -1,30 +1,32 @@
 #!/usr/bin/env bash
+
 set -euo pipefail
 
-# Гарантируем папку вывода
+# 1. Проверяем, что hosts есть и не пустой
+if [[ ! -s hosts ]]; then
+  echo "ERROR: hosts file is missing or empty" >&2
+  exit 1
+fi
+
+# 2. Подготовка папки и выходного файла
 mkdir -p mikrotik
 output="mikrotik/dns-static.rsc"
-
-# Сброс предыдущего скрипта
 echo '/ip dns static remove [find address-list="autohost"]' > "$output"
 
-# Правильное объявление массива + счетчика
+# 3. Декларации
 declare -A seen
 cnt=0
 
-# Читаем очищенный от комментариев список hosts
+# 4. Генерация новых записей
 while read -r ip rest; do
   [[ "$ip" =~ ^#|^$ ]] && continue
   for domain in $rest; do
-    # отфильтровываем localhost-* и broadcasthost
     [[ "$ip" == "127.0.0.1" && "$domain" =~ ^(localhost|local|localhost.localdomain)$ ]] && continue
     [[ "$ip" == "255.255.255.255" && "$domain" == "broadcasthost" ]] && continue
 
-    # незаполненный адрес 0.0.0.0 мапим на TEST-IP
     ip_addr=$([[ "$ip" == "0.0.0.0" ]] && echo "192.0.2.1" || echo "$ip")
     key="$ip_addr|$domain"
 
-    # добавляем только новые пары IP|домен
     if [[ -z "${seen[$key]+x}" ]]; then
       echo "/ip dns static add name=$domain address=$ip_addr ttl=1d address-list=autohost" >> "$output"
       seen[$key]=1
@@ -33,11 +35,11 @@ while read -r ip rest; do
   done
 done < <(grep -Ev '^(#|$)' hosts)
 
-# Логируем и экспортируем count в GitHub Actions
+# 5. Лог в RSC и экспорт cnt в окружение Actions
 echo "/log info \"[update-hosts] Added $cnt entries\"" >> "$output"
 echo "cnt=$cnt" >> "$GITHUB_ENV"
 
-# Если ничего не добавилось — чистим артефакты и выходим
+# 6. Если записей нет → очищаем артефакты и выходим
 if [[ "$cnt" -eq 0 ]]; then
   echo "No new domains found. Skipping RSC generation."
   > mikrotik/new-domains.txt
@@ -45,14 +47,13 @@ if [[ "$cnt" -eq 0 ]]; then
   exit 0
 fi
 
-# Иначе сохраняем список новых доменов
+# 7. Сохраняем список новых доменов
 grep '^/ip dns static add name=' "$output" > mikrotik/new-domains.txt
 
-# Обновляем CHANGELOG.md
+# 8. Обновляем CHANGELOG.md
 touch CHANGELOG.md
 DATE=$(date +'%Y-%m-%d')
 TAG="v$(date +'%Y%m%d')"
-
 {
   echo "## [$TAG] — $DATE"
   echo "Добавлено $cnt записей"
@@ -60,6 +61,6 @@ TAG="v$(date +'%Y%m%d')"
   echo ""
 } >> CHANGELOG.md
 
-# Фиксим коммит с новым changelog
+# 9. Коммит CHANGELOG.md
 git add CHANGELOG.md
 git commit -m "Update CHANGELOG for $TAG"
