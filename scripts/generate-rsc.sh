@@ -1,24 +1,25 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# При ошибке выводим строку и команду
+# при ошибке выводим строку и команду
 trap 'echo "❌ Ошибка в строке ${LINENO}: $BASH_COMMAND" >&2' ERR
 
-# Проверяем, что файл hosts существует и не пуст
+# 1. Проверяем, что hosts существует и не пустой
 if [[ ! -s hosts ]]; then
   echo "ERROR: hosts file is missing or empty" >&2
   exit 1
 fi
 
-# Создаём каталог и инициализируем output
+# 2. Подготовка каталога и RSC-файла
 mkdir -p mikrotik
 output="mikrotik/dns-static.rsc"
 echo '/ip dns static remove [find address-list="autohost"]' > "$output"
 
+# 3. Декларируем переменные
 declare -A seen
 cnt=0
 
-# Генерируем записи из файла hosts
+# 4. Генерируем новые записи
 while read -r ip rest; do
   [[ "$ip" =~ ^#|^$ ]] && continue
 
@@ -37,11 +38,11 @@ while read -r ip rest; do
   done
 done < <(grep -Ev '^(#|$)' hosts)
 
-# Лог в RSC и экспорт счётчика в окружение Actions
+# 5. Лог и экспорт счётчика в GitHub Actions
 echo "/log info \"[update-hosts] Added $cnt entries\"" >> "$output"
 echo "cnt=$cnt" >> "$GITHUB_ENV"
 
-# Если новых записей нет — очищаем и выходим
+# 6. Если нет новых записей — очищаем и выходим
 if [[ "$cnt" -eq 0 ]]; then
   echo "No new domains found. Skipping RSC generation."
   > mikrotik/new-domains.txt
@@ -49,10 +50,10 @@ if [[ "$cnt" -eq 0 ]]; then
   exit 0
 fi
 
-# Сохраняем список новых доменов
+# 7. Сохраняем список новых доменов
 grep '^/ip dns static add name=' "$output" > mikrotik/new-domains.txt
 
-# Обновляем CHANGELOG.md
+# 8. Обновляем CHANGELOG.md
 touch CHANGELOG.md
 DATE=$(date +'%Y-%m-%d')
 TAG="v$(date +'%Y%m%d')"
@@ -63,6 +64,6 @@ TAG="v$(date +'%Y%m%d')"
   echo ""
 } >> CHANGELOG.md
 
-# Коммитим CHANGELOG.md
+# 9. Коммитим CHANGELOG.md в репозиторий
 git add CHANGELOG.md
 git commit -m "Update CHANGELOG for $TAG"
