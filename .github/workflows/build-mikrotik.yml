@@ -2,44 +2,33 @@ name: Build Mikrotik RSC
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 3 * * *' # Ежедневно в 03:00 UTC
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v3
 
-      - name: Fetch latest hosts
-        run: curl -s https://raw.githubusercontent.com/AntiZapret/antizapret-hosts/master/hosts > hosts
+      - name: Install curl
+        run: sudo apt-get update && sudo apt-get install -y curl
 
-      - name: Fetch previous hosts snapshot
-        run: cp hosts old-hosts || true
+      - name: Download hosts
+        run: curl -o hosts https://raw.githubusercontent.com/pumPCin/AntiZapret/main/hosts
 
-      - name: Compare hosts
-        continue-on-error: false
-        run: |
-          if cmp -s hosts old-hosts; then
-            echo "::notice ::No changes in AntiZapret hosts, skipping update"
-            exit 0
-          fi
-
-      - name: Generate dns-static.rsc
+      - name: Generate RSC
         run: bash scripts/generate-rsc.sh
 
       - name: Commit & Tag
+        if: env.cnt != '0'
         run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          git add mikrotik/dns-static.rsc hosts CHANGELOG.md
-          git commit -m "Rebuild Mikrotik RSC: ${cnt:-0} entries"
           DATE=$(date +'%Y%m%d')
           TAG="v$DATE"
-          git tag $TAG
-          git push origin main --tags
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git tag "$TAG"
+          git push origin "$TAG"
 
       - name: Create GitHub Release
         env:
@@ -47,8 +36,17 @@ jobs:
         run: |
           DATE=$(date +'%Y%m%d')
           TAG="v$DATE"
-          DOMAINS=$(cat mikrotik/new-domains.txt | sed 's/^/• /')
-          CHANGELOG="Автоматическая сборка MikroTik RSC\nДобавлено ${cnt:-0} записей\n\n$DOMAINS"
-          gh release create $TAG mikrotik/dns-static.rsc \
-            --title "DNS Static $TAG" \
-            --notes "$CHANGELOG"
+
+          if [[ "${cnt:-0}" -eq 0 ]]; then
+            CHANGELOG="Нет новых записей. RSC-файл не изменился."
+            echo "::notice ::cnt=0 — пропускаем публикацию релиза"
+            gh release create "$TAG" \
+              --title "DNS Static $TAG" \
+              --notes "$CHANGELOG"
+          else
+            DOMAINS=$(sed 's/^/• /' mikrotik/new-domains.txt)
+            CHANGELOG="Автоматическая сборка MikroTik RSC\nДобавлено $cnt записей\n\n$DOMAINS"
+            gh release create "$TAG" mikrotik/dns-static.rsc \
+              --title "DNS Static $TAG" \
+              --notes "$CHANGELOG"
+          fi
