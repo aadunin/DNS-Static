@@ -34,6 +34,11 @@ echo "/log info \"[update-hosts] Added $cnt entries\"" >> "$output"
 
 # Экспорт переменной для workflow
 echo "cnt=$cnt" >> $GITHUB_ENV
+  if [[ "$cnt" -eq 0 ]]; then
+    echo "No new domains found. Skipping RSC generation."
+    exit 0
+  fi
+
 
 # Сохраняем список новых доменов
 grep '^/ip dns static add name=' "$output" > mikrotik/new-domains.txt
