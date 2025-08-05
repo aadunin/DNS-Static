@@ -1,25 +1,29 @@
 #!/bin/bash
-set -e
 
 mkdir -p mikrotik
-echo "/ip dns static remove [find address-list=\"autohost\"]" > mikrotik/dns-static.rsc
+output="mikrotik/dns-static.rsc"
+echo '/ip dns static remove [find address-list="autohost"]' > "$output"
 
 declare -A seen
 cnt=0
 
 while read -r ip rest; do
-  for d in $rest; do
-    [[ "$ip" == "127.0.0.1" && "$d" =~ ^(local|localhost|localhost.localdomain)$ ]] && continue
-    [[ "$ip" == "255.255.255.255" && "$d" == "broadcasthost" ]] && continue
-    ip_addr=${ip/0.0.0.0/192.0.2.1}
-    key="$ip_addr|$d"
-    [[ -n "${seen[$key]}" ]] && continue
-    seen[$key]=1
-    echo "/ip dns static add name=$d address=$ip_addr ttl=1d address-list=autohost" >> mikrotik/dns-static.rsc
-    cnt=$((cnt+1))
+  [[ "$ip" =~ ^#|^$ ]] && continue
+
+  for domain in $rest; do
+    [[ "$ip" == "127.0.0.1" && "$domain" =~ ^(localhost|local|localhost.localdomain)$ ]] && continue
+    [[ "$ip" == "255.255.255.255" && "$domain" == "broadcasthost" ]] && continue
+
+    ip_addr=$([[ "$ip" == "0.0.0.0" ]] && echo "192.0.2.1" || echo "$ip")
+    key="$ip_addr|$domain"
+
+    if [[ -z "${seen[$key]}" ]]; then
+      echo "/ip dns static add name=$domain address=$ip_addr ttl=1d address-list=autohost" >> "$output"
+      seen[$key]=1
+      ((cnt++))
+    fi
   done
 done < <(grep -Ev '^(#|$)' hosts)
 
-echo "/log info \"[update-hosts] Added $cnt entries\"" >> mikrotik/dns-static.rsc
-echo ":: Generated $cnt unique entries"
+echo "/log info \"[update-hosts] Added $cnt entries\"" >> "$output"
 echo "cnt=$cnt" >> $GITHUB_ENV
