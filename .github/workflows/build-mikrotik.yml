@@ -2,22 +2,34 @@ name: Build Mikrotik RSC
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 3 * * *'
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Install curl
-        run: sudo apt-get update && sudo apt-get install -y curl
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y curl
 
       - name: Download hosts
         run: |
-          curl -o hosts \
-            https://raw.githubusercontent.com/pumPCin/AntiZapret/main/hosts
+          curl -sSL \
+            https://raw.githubusercontent.com/AntiZapret/antizapret-hosts/master/hosts \
+            -o hosts
+
+      - name: Verify hosts download
+        run: |
+          if [[ ! -s hosts ]]; then
+            echo "ERROR: hosts file is missing or empty" >&2
+            exit 1
+          fi
 
       - name: Generate RSC
         run: bash scripts/generate-rsc.sh
@@ -28,7 +40,7 @@ jobs:
           DATE=$(date +'%Y%m%d')
           TAG="v$DATE"
           git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
+          git config user.email "actions@github.com"
           git tag "$TAG"
           git push origin "$TAG"
 
