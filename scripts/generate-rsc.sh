@@ -8,21 +8,21 @@ if [[ ! -s hosts ]]; then
   exit 1
 fi
 
-# 2) Подготавливаем output
+# 2) Подготовка каталога и RSC-файла
 mkdir -p mikrotik
-output=mikrotik/dns-static.rsc
+output="mikrotik/dns-static.rsc"
 echo '/ip dns static remove [find address-list="autohost"]' > "$output"
 
+# 3) Объявляем массив и счётчик
 declare -A seen
 cnt=0
 
-# 3) Генерируем записи из hosts
-while read -r ip domains; do
+# 4) Генерируем новые записи из hosts
+while read -r ip rest; do
   [[ "$ip" =~ ^#|^$ ]] && continue
-
-  for domain in $domains; do
+  for domain in $rest; do
     [[ "$ip" == "127.0.0.1" && "$domain" =~ ^(localhost|local|localhost\.localdomain)$ ]] && continue
-    [[ "$ip" == "255.255.255.255" && "$domain" == "broadcasthost" ]]                && continue
+    [[ "$ip" == "255.255.255.255" && "$domain" == "broadcasthost" ]] && continue
 
     ip_addr=$([[ "$ip" == "0.0.0.0" ]] && echo "192.0.2.1" || echo "$ip")
     key="$ip_addr|$domain"
@@ -35,31 +35,32 @@ while read -r ip domains; do
   done
 done < <(grep -Ev '^(#|$)' hosts)
 
-# 4) Лог и экспорт счётчика
+# 5) Лог и экспорт cnt для следующих шагов Actions
 echo "/log info \"[update-hosts] Added $cnt entries\"" >> "$output"
 echo "cnt=$cnt" >> "$GITHUB_ENV"
 
-# 5) Если записей нет — очищаем вывод и выходим
+# 6) Если записей нет — очищаем и уходим
 if [[ $cnt -eq 0 ]]; then
-  echo "No new domains found. Clearing output."
+  echo "No new domains found. Clearing outputs."
   > mikrotik/new-domains.txt
   > "$output"
   exit 0
 fi
 
-# 6) Сохраняем список новых доменов
+# 7) Сохраняем список новых доменов для релизов/CHANGELOG
 grep '^/ip dns static add' "$output" > mikrotik/new-domains.txt
 
-# 7) Обновляем CHANGELOG.md
+# 8) Обновляем CHANGELOG.md
 touch CHANGELOG.md
 DATE=$(date +'%Y-%m-%d')
-TAG=v$(date +'%Y%m%d')
+TAG="v$(date +'%Y%m%d')"
 {
   echo "## [$TAG] — $DATE"
-  echo "Added $cnt entries"
+  echo "Добавлено $cnt записей"
   sed 's/^/- /' mikrotik/new-domains.txt
   echo ""
 } >> CHANGELOG.md
 
+# 9) Коммитим CHANGELOG.md
 git add CHANGELOG.md
 git commit -m "Update CHANGELOG for $TAG"
