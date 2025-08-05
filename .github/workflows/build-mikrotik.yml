@@ -1,31 +1,26 @@
 name: Build Mikrotik RSC
 
 on:
-  push:
-    branches: [ main ]
-  schedule:
-    - cron: "0 0 * * *" # каждый день в 00:00 UTC
   workflow_dispatch:
+  schedule:
+    - cron: '0 3 * * *'  # Ежедневно в 03:00 UTC
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      cnt: 0
+
     steps:
-      # 1) Клонируем репозиторий
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          persist-credentials: false
 
-      # 2) Скачиваем свежий hosts из AntiZapret
       - name: Fetch latest hosts
-        run: curl -sSL -o hosts https://raw.githubusercontent.com/pumPCin/AntiZapret/main/hosts
+        run: curl -s https://raw.githubusercontent.com/AntiZapret/antizapret-hosts/master/hosts > hosts
 
-      # 3) Скачиваем предыдущий snapshot из своего репо
       - name: Fetch previous hosts snapshot
-        run: curl -sSL -o old-hosts https://raw.githubusercontent.com/aadunin/DNS-Static/main/hosts || touch old-hosts
+        run: cp hosts old-hosts || true
 
-      # 4) Сравниваем и прерываем workflow, если изменений нет
       - name: Compare hosts
         run: |
           if cmp -s hosts old-hosts; then
@@ -33,37 +28,31 @@ jobs:
             exit 0
           fi
 
-      # 5) Генерируем mikrotik/dns-static.rsc
       - name: Generate dns-static.rsc
-        run: bash scripts/generate-rsc.sh
+        run: |
+          bash scripts/generate-rsc.sh
+          cnt=$(wc -l < mikrotik/dns-static.rsc)
+          echo "cnt=$cnt" >> $GITHUB_ENV
 
-      # 6) Коммитим и пушим .rsc и новый hosts
-      - name: Commit & Push dns-static.rsc and hosts snapshot
+      - name: Commit & Tag
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add mikrotik/dns-static.rsc hosts
-          git diff --quiet --cached || git commit -m "Rebuild Mikrotik RSC: $cnt entries"
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:main
-
-      # 7) Создаём тег и релиз, если были изменения
-      - name: Create GitHub Release
-        if: success()
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          if git diff --quiet --cached; then
-            echo "No changes, skipping release"
-            exit 0
-          fi
-
+          git commit -m "Rebuild Mikrotik RSC: $cnt entries"
           DATE=$(date +'%Y%m%d')
           TAG="v$DATE"
           CHANGELOG="Автоматическая сборка MikroTik RSC\nДобавлено $cnt записей"
-
           git tag $TAG
-          git push origin $TAG
+          git push origin main --tags
 
+      - name: Create GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          DATE=$(date +'%Y%m%d')
+          TAG="v$DATE"
+          CHANGELOG="Автоматическая сборка MikroTik RSC\nДобавлено $cnt записей"
           gh release create $TAG mikrotik/dns-static.rsc \
             --title "DNS Static $TAG" \
             --notes "$CHANGELOG"
