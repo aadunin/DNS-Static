@@ -29,10 +29,8 @@ jobs:
           fi
 
       - name: Generate dns-static.rsc
-        run: |
-          bash scripts/generate-rsc.sh
-          cnt=$(wc -l < mikrotik/dns-static.rsc)
-          echo "cnt=$cnt" >> $GITHUB_ENV
+        run: bash scripts/generate-rsc.sh
+
 
       - name: Commit & Tag
         run: |
@@ -52,7 +50,10 @@ jobs:
         run: |
           DATE=$(date +'%Y%m%d')
           TAG="v$DATE"
-          CHANGELOG="Автоматическая сборка MikroTik RSC\nДобавлено $cnt записей"
+          DOMAINS=$(cat mikrotik/new-domains.txt | sed 's/^/• /')
+          CHANGELOG="Автоматическая сборка MikroTik RSC\nДобавлено $cnt записей\n\n$DOMAINS"
+
           gh release create $TAG mikrotik/dns-static.rsc \
             --title "DNS Static $TAG" \
             --notes "$CHANGELOG"
+
