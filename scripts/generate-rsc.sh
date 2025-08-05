@@ -1,27 +1,29 @@
 #!/usr/bin/env bash
-
 set -euo pipefail
 
-# 1. Проверяем, что hosts есть и не пустой
+# При ошибке выводим строку и команду
+trap 'echo "❌ Ошибка в строке ${LINENO}: $BASH_COMMAND" >&2' ERR
+
+# Проверяем, что файл hosts существует и не пуст
 if [[ ! -s hosts ]]; then
   echo "ERROR: hosts file is missing or empty" >&2
   exit 1
 fi
 
-# 2. Подготовка папки и выходного файла
+# Создаём каталог и инициализируем output
 mkdir -p mikrotik
 output="mikrotik/dns-static.rsc"
 echo '/ip dns static remove [find address-list="autohost"]' > "$output"
 
-# 3. Декларации
 declare -A seen
 cnt=0
 
-# 4. Генерация новых записей
+# Генерируем записи из файла hosts
 while read -r ip rest; do
   [[ "$ip" =~ ^#|^$ ]] && continue
+
   for domain in $rest; do
-    [[ "$ip" == "127.0.0.1" && "$domain" =~ ^(localhost|local|localhost.localdomain)$ ]] && continue
+    [[ "$ip" == "127.0.0.1" && "$domain" =~ ^(localhost|local|localhost\.localdomain)$ ]] && continue
     [[ "$ip" == "255.255.255.255" && "$domain" == "broadcasthost" ]] && continue
 
     ip_addr=$([[ "$ip" == "0.0.0.0" ]] && echo "192.0.2.1" || echo "$ip")
@@ -35,11 +37,11 @@ while read -r ip rest; do
   done
 done < <(grep -Ev '^(#|$)' hosts)
 
-# 5. Лог в RSC и экспорт cnt в окружение Actions
+# Лог в RSC и экспорт счётчика в окружение Actions
 echo "/log info \"[update-hosts] Added $cnt entries\"" >> "$output"
 echo "cnt=$cnt" >> "$GITHUB_ENV"
 
-# 6. Если записей нет → очищаем артефакты и выходим
+# Если новых записей нет — очищаем и выходим
 if [[ "$cnt" -eq 0 ]]; then
   echo "No new domains found. Skipping RSC generation."
   > mikrotik/new-domains.txt
@@ -47,10 +49,10 @@ if [[ "$cnt" -eq 0 ]]; then
   exit 0
 fi
 
-# 7. Сохраняем список новых доменов
+# Сохраняем список новых доменов
 grep '^/ip dns static add name=' "$output" > mikrotik/new-domains.txt
 
-# 8. Обновляем CHANGELOG.md
+# Обновляем CHANGELOG.md
 touch CHANGELOG.md
 DATE=$(date +'%Y-%m-%d')
 TAG="v$(date +'%Y%m%d')"
@@ -61,6 +63,6 @@ TAG="v$(date +'%Y%m%d')"
   echo ""
 } >> CHANGELOG.md
 
-# 9. Коммит CHANGELOG.md
+# Коммитим CHANGELOG.md
 git add CHANGELOG.md
 git commit -m "Update CHANGELOG for $TAG"
