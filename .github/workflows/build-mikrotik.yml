@@ -3,7 +3,7 @@ name: Build Mikrotik RSC
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 3 * * *'  # Ежедневно в 03:00 UTC
+    - cron: '0 3 * * *' # Ежедневно в 03:00 UTC
 
 jobs:
   build:
@@ -31,16 +31,14 @@ jobs:
       - name: Generate dns-static.rsc
         run: bash scripts/generate-rsc.sh
 
-
       - name: Commit & Tag
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add mikrotik/dns-static.rsc hosts
+          git add mikrotik/dns-static.rsc hosts CHANGELOG.md
           git commit -m "Rebuild Mikrotik RSC: $cnt entries"
           DATE=$(date +'%Y%m%d')
           TAG="v$DATE"
-          CHANGELOG="Автоматическая сборка MikroTik RSC\nДобавлено $cnt записей"
           git tag $TAG
           git push origin main --tags
 
@@ -56,4 +54,3 @@ jobs:
           gh release create $TAG mikrotik/dns-static.rsc \
             --title "DNS Static $TAG" \
             --notes "$CHANGELOG"
-
