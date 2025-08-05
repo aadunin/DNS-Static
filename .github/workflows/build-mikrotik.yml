@@ -44,7 +44,7 @@ jobs:
           git tag "$TAG"
           git push origin "$TAG"
 
-      - name: Create GitHub Release (empty)
+      - name: Create GitHub Release (no changes)
         if: env.cnt == '0'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
