@@ -17,17 +17,16 @@ while read -r ip rest; do
   for domain in $rest; do
     [[ "$ip" == "127.0.0.1" && "$domain" =~ ^(localhost|local|localhost.localdomain)$ ]] && continue
     [[ "$ip" == "255.255.255.255" && "$domain" == "broadcasthost" ]] && continue
-
     ip_addr=$([[ "$ip" == "0.0.0.0" ]] && echo "192.0.2.1" || echo "$ip")
     key="$ip_addr|$domain"
-
-    if [[ -z "${seen[$key]}" ]]; then
+    if [[ -z "${seen[$key]+x}" ]]; then
       echo "/ip dns static add name=$domain address=$ip_addr ttl=1d address-list=autohost" >> "$output"
       seen[$key]=1
       ((cnt++))
     fi
   done
 done < <(grep -Ev '^(#|$)' hosts)
+
 
 # Лог MikroTik
 echo "/log info \"[update-hosts] Added $cnt entries\"" >> "$output"
