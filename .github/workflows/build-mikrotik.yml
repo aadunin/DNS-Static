@@ -22,7 +22,7 @@ jobs:
 
       - name: Download hosts
         run: |
-          URL="https://raw.githubusercontent.com/AntiZapret/antizapret-hosts/master/hosts"
+          URL="https://raw.githubusercontent.com/pumPCin/AntiZapret/main/hosts"
           curl -fSL "$URL" -o hosts
 
       - name: Verify hosts file
