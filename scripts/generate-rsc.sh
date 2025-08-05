@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 mkdir -p mikrotik
 output="mikrotik/dns-static.rsc"
 
