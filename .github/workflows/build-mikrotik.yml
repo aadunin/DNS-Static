@@ -38,25 +38,7 @@ jobs:
 
     # 5) Генерируем mikrotik/dns-static.rsc
     - name: Generate dns-static.rsc
-      run: |
-        mkdir -p mikrotik
-        echo "/ip dns static remove [find address-list=\"autohost\"]" > mikrotik/dns-static.rsc
-        declare -A seen
-        cnt=0
-        while read -r ip rest; do
-          for d in $rest; do
-            if [[ "$ip" == "127.0.0.1" && ( "$d" == "local" || "$d" == "localhost" || "$d" == "localhost.localdomain" ) ]]; then continue; fi
-            if [[ "$ip" == "255.255.255.255" && "$d" == "broadcasthost" ]]; then continue; fi
-            if [[ "$ip" == "0.0.0.0" ]]; then ip_addr="192.0.2.1"; else ip_addr="$ip"; fi
-            key="$ip_addr|$d"
-            if [[ -n "${seen[$key]}" ]]; then continue; fi
-            seen[$key]=1
-            echo "/ip dns static add name=$d address=$ip_addr ttl=1d address-list=autohost" >> mikrotik/dns-static.rsc
-            cnt=$((cnt+1))
-          done
-        done < <(grep -Ev '^(#|$)' hosts)
-        echo "/log info \"[update-hosts] Added $cnt entries\"" >> mikrotik/dns-static.rsc
-        echo ":: Generated $cnt unique entries"
+      run: bash scripts/generate-rsc.sh
 
     # 6) Коммитим и пушим .rsc и новый hosts
     - name: Commit & Push dns-static.rsc and hosts snapshot
