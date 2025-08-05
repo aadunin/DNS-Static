@@ -32,7 +32,8 @@ echo "cnt=$cnt" >> "$GITHUB_ENV"
 
 if [[ "$cnt" -eq 0 ]]; then
   echo "No new domains found. Skipping RSC generation."
-  > mikrotik/new-domains.txt  # Очистка файла
+  > mikrotik/new-domains.txt
+  > "$output"
   exit 0
 fi
 
