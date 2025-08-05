@@ -27,17 +27,18 @@ while read -r ip rest; do
   done
 done < <(grep -Ev '^(#|$)' hosts)
 
-# Лог MikroTik
-echo "/log info \"[update-hosts] Added $cnt entries\"" >> "$output"
-
 # Экспорт переменной для workflow
 echo "cnt=$cnt" >> "$GITHUB_ENV"
 
-# Защита от пустого cnt
+# Защита от пустого cnt — завершение до любых операций
 if [[ -z "${cnt:-}" || "$cnt" -eq 0 ]]; then
+  echo "/log info \"[update-hosts] No new domains found\"" >> "$output"
   echo "No new domains found. Skipping RSC generation."
   exit 0
 fi
+
+# Лог MikroTik
+echo "/log info \"[update-hosts] Added $cnt entries\"" >> "$output"
 
 # Сохраняем список новых доменов
 grep '^/ip dns static add name=' "$output" > mikrotik/new-domains.txt
