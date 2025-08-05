@@ -7,9 +7,11 @@ output="mikrotik/dns-static.rsc"
 # Очистка предыдущих записей
 echo '/ip dns static remove [find address-list="autohost"]' > "$output"
 
+# Правильное объявление: массив и переменная отдельно
 declare -A seen
 cnt=0
 
+# Обработка входного файла hosts
 while read -r ip rest; do
   [[ "$ip" =~ ^#|^$ ]] && continue
   for domain in $rest; do
@@ -27,9 +29,11 @@ while read -r ip rest; do
   done
 done < <(grep -Ev '^(#|$)' hosts)
 
+# Лог MikroTik и экспорт cnt в окружение для Actions
 echo "/log info \"[update-hosts] Added $cnt entries\"" >> "$output"
 echo "cnt=$cnt" >> "$GITHUB_ENV"
 
+# Если нет новых записей — очищаем артефакты и выходим
 if [[ "$cnt" -eq 0 ]]; then
   echo "No new domains found. Skipping RSC generation."
   > mikrotik/new-domains.txt
@@ -37,8 +41,10 @@ if [[ "$cnt" -eq 0 ]]; then
   exit 0
 fi
 
+# Иначе сохраняем список новых доменов
 grep '^/ip dns static add name=' "$output" > mikrotik/new-domains.txt
 
+# Обновляем CHANGELOG
 touch CHANGELOG.md
 DATE=$(date +'%Y-%m-%d')
 TAG="v$(date +'%Y%m%d')"
@@ -50,5 +56,6 @@ TAG="v$(date +'%Y%m%d')"
   echo ""
 } >> CHANGELOG.md
 
+# Фиксим коммит
 git add CHANGELOG.md
 git commit -m "Update CHANGELOG for $TAG"
