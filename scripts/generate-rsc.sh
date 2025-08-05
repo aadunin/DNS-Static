@@ -27,3 +27,16 @@ done < <(grep -Ev '^(#|$)' hosts)
 
 echo "/log info \"[update-hosts] Added $cnt entries\"" >> "$output"
 echo "cnt=$cnt" >> $GITHUB_ENV
+
+# Сохраняем список новых доменов
+grep '^/ip dns static add name=' mikrotik/dns-static.rsc > mikrotik/new-domains.txt
+
+# Формируем changelog-фрагмент
+DATE=$(date +'%Y-%m-%d')
+TAG="v$(date +'%Y%m%d')"
+echo -e "## [$TAG] — $DATE\nДобавлено $cnt записей\n" >> CHANGELOG.md
+cat mikrotik/new-domains.txt | sed 's/^/- /' >> CHANGELOG.md
+echo "" >> CHANGELOG.md
+
+git add CHANGELOG.md
+git commit -m "Update CHANGELOG for $TAG"
