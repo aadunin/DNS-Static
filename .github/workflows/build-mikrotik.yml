@@ -22,7 +22,7 @@ jobs:
         run: cp hosts old-hosts || true
 
       - name: Compare hosts
-        continue-on -error: false
+        continue-on-error: false
         run: |
           if cmp -s hosts old-hosts; then
             echo "::notice ::No changes in AntiZapret hosts, skipping update"
