@@ -13,9 +13,10 @@ jobs:
     steps:
 
     # 1) Клонируем репозиторий
-    - uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v4
       with:
-        persist-credentials: true
+        persist-credentials: false
 
     # 2) Скачиваем свежий hosts из AntiZapret
     - name: Fetch latest hosts
@@ -35,11 +36,11 @@ jobs:
           exit 0
         fi
 
-    # 5) Генерируем mikrotik/update-hosts.rsc
-    - name: Generate update-hosts.rsc
+    # 5) Генерируем mikrotik/dns-static.rsc
+    - name: Generate dns-static.rsc
       run: |
         mkdir -p mikrotik
-        echo "/ip dns static remove [find address-list=\"autohost\"]" > mikrotik/update-hosts.rsc
+        echo "/ip dns static remove [find address-list=\"autohost\"]" > mikrotik/dns-static.rsc
         declare -A seen
         cnt=0
         while read -r ip rest; do
@@ -50,18 +51,18 @@ jobs:
             key="$ip_addr|$d"
             if [[ -n "${seen[$key]}" ]]; then continue; fi
             seen[$key]=1
-            echo "/ip dns static add name=$d address=$ip_addr ttl=1d address-list=autohost" >> mikrotik/update-hosts.rsc
+            echo "/ip dns static add name=$d address=$ip_addr ttl=1d address-list=autohost" >> mikrotik/dns-static.rsc
             cnt=$((cnt+1))
           done
         done < <(grep -Ev '^(#|$)' hosts)
-        echo "/log info \"[update-hosts] Added $cnt entries\"" >> mikrotik/update-hosts.rsc
+        echo "/log info \"[update-hosts] Added $cnt entries\"" >> mikrotik/dns-static.rsc
         echo ":: Generated $cnt unique entries"
 
     # 6) Коммитим и пушим .rsc и новый hosts
-    - name: Commit & Push update-hosts.rsc and hosts snapshot
+    - name: Commit & Push dns-static.rsc and hosts snapshot
       run: |
         git config user.name "github-actions"
         git config user.email "actions@github.com"
-        git add mikrotik/update-hosts.rsc hosts
+        git add mikrotik/dns-static.rsc hosts
         git diff --quiet --cached || git commit -m "Rebuild Mikrotik RSC: $cnt entries"
-        git push origin main
+        git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:main
