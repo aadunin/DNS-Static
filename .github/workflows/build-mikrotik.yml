@@ -15,7 +15,9 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y curl
 
       - name: Download hosts
-        run: curl -o hosts https://raw.githubusercontent.com/pumPCin/AntiZapret/main/hosts
+        run: |
+          curl -o hosts \
+            https://raw.githubusercontent.com/pumPCin/AntiZapret/main/hosts
 
       - name: Generate RSC
         run: bash scripts/generate-rsc.sh
