@@ -2,14 +2,16 @@
 
 mkdir -p mikrotik
 output="mikrotik/dns-static.rsc"
+
+# Очистка предыдущих записей
 echo '/ip dns static remove [find address-list="autohost"]' > "$output"
 
 declare -A seen
 cnt=0
 
+# Обработка файла hosts
 while read -r ip rest; do
   [[ "$ip" =~ ^#|^$ ]] && continue
-
   for domain in $rest; do
     [[ "$ip" == "127.0.0.1" && "$domain" =~ ^(localhost|local|localhost.localdomain)$ ]] && continue
     [[ "$ip" == "255.255.255.255" && "$domain" == "broadcasthost" ]] && continue
@@ -25,18 +27,27 @@ while read -r ip rest; do
   done
 done < <(grep -Ev '^(#|$)' hosts)
 
+# Лог MikroTik
 echo "/log info \"[update-hosts] Added $cnt entries\"" >> "$output"
+
+# Экспорт переменной для workflow
 echo "cnt=$cnt" >> $GITHUB_ENV
 
 # Сохраняем список новых доменов
-grep '^/ip dns static add name=' mikrotik/dns-static.rsc > mikrotik/new-domains.txt
+grep '^/ip dns static add name=' "$output" > mikrotik/new-domains.txt
 
-# Формируем changelog-фрагмент
+# Обновляем CHANGELOG.md
+touch CHANGELOG.md
 DATE=$(date +'%Y-%m-%d')
 TAG="v$(date +'%Y%m%d')"
-echo -e "## [$TAG] — $DATE\nДобавлено $cnt записей\n" >> CHANGELOG.md
-cat mikrotik/new-domains.txt | sed 's/^/- /' >> CHANGELOG.md
-echo "" >> CHANGELOG.md
 
+{
+  echo "## [$TAG] — $DATE"
+  echo "Добавлено $cnt записей"
+  cat mikrotik/new-domains.txt | sed 's/^/- /'
+  echo ""
+} >> CHANGELOG.md
+
+# Коммитим changelog
 git add CHANGELOG.md
 git commit -m "Update CHANGELOG for $TAG"
