@@ -37,10 +37,13 @@ if [[ "$cnt" -eq 0 ]]; then
   exit 0
 fi
 
-# Продолжение только если cnt > 0
+# Лог MikroTik
 echo "/log info \"[update-hosts] Added $cnt entries\"" >> "$output"
+
+# Сохраняем список новых доменов
 grep '^/ip dns static add name=' "$output" > mikrotik/new-domains.txt
 
+# Обновляем CHANGELOG.md
 touch CHANGELOG.md
 DATE=$(date +'%Y-%m-%d')
 TAG="v$(date +'%Y%m%d')"
@@ -52,5 +55,6 @@ TAG="v$(date +'%Y%m%d')"
   echo ""
 } >> CHANGELOG.md
 
+# Коммитим changelog
 git add CHANGELOG.md
 git commit -m "Update CHANGELOG for $TAG"
