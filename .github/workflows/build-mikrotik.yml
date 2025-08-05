@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
         with:
           persist-credentials: true
@@ -22,17 +22,17 @@ jobs:
 
       - name: Download hosts
         run: |
-          URL=https://raw.githubusercontent.com/AntiZapret/antizapret-hosts/main/hosts
-          http_status=$(curl -sSL -w "%{http_code}" -o hosts "$URL")
-          if [[ "$http_status" -ne 200 ]]; then
-            echo "ERROR: failed to download hosts (HTTP $http_status)" >&2
+          URL="https://raw.githubusercontent.com/AntiZapret/antizapret-hosts/master/hosts"
+          curl -fSL "$URL" -o hosts
+
+      - name: Verify hosts file
+        run: |
+          if [[ ! -s hosts ]]; then
+            echo "ERROR: hosts file is missing or empty" >&2
             exit 1
           fi
-
-      - name: Validate hosts file
-        run: |
           if ! grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' hosts; then
-            echo "ERROR: hosts file does not contain valid IPv4 entries" >&2
+            echo "ERROR: hosts does not contain valid IPv4 entries" >&2
             exit 1
           fi
 
@@ -43,7 +43,7 @@ jobs:
         if: env.cnt != '0'
         run: |
           DATE=$(date +'%Y%m%d')
-          TAG=v$DATE
+          TAG="v$DATE"
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git tag "$TAG"
@@ -54,19 +54,19 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          TAG=v$(date +'%Y%m%d')
+          TAG="v$(date +'%Y%m%d')"
           gh release create "$TAG" \
             --title "DNS Static $TAG" \
-            --notes "No new entries. RSC file unchanged."
+            --notes "Нет новых записей. RSC-файл не изменился."
 
       - name: Create GitHub Release with RSC
         if: env.cnt != '0'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          TAG=v$(date +'%Y%m%d')
+          TAG="v$(date +'%Y%m%d')"
           DOMAINS=$(sed 's/^/• /' mikrotik/new-domains.txt)
-          CHANGELOG="Automated MikroTik RSC build\nAdded $cnt entries\n\n$DOMAINS"
+          CHANGELOG="Автоматическая сборка MikroTik RSC\nДобавлено $cnt записей\n\n$DOMAINS"
           gh release create "$TAG" mikrotik/dns-static.rsc \
             --title "DNS Static $TAG" \
             --notes "$CHANGELOG"
