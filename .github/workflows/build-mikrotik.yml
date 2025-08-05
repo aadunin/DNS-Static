@@ -11,40 +11,59 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      # 1) Клонируем репозиторий
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
-    # 1) Клонируем репозиторий
-    - name: Checkout repository
-      uses: actions/checkout@v4
-      with:
-        persist-credentials: false
+      # 2) Скачиваем свежий hosts из AntiZapret
+      - name: Fetch latest hosts
+        run: curl -sSL -o hosts https://raw.githubusercontent.com/pumPCin/AntiZapret/main/hosts
 
-    # 2) Скачиваем свежий hosts из AntiZapret
-    - name: Fetch latest hosts
-      run: |
-        curl -sSL -o hosts https://raw.githubusercontent.com/pumPCin/AntiZapret/main/hosts
+      # 3) Скачиваем предыдущий snapshot из своего репо
+      - name: Fetch previous hosts snapshot
+        run: curl -sSL -o old-hosts https://raw.githubusercontent.com/aadunin/DNS-Static/main/hosts || touch old-hosts
 
-    # 3) Скачиваем предыдущий snapshot из своего репо
-    - name: Fetch previous hosts snapshot
-      run: |
-        curl -sSL -o old-hosts https://raw.githubusercontent.com/aadunin/DNS-Static/main/hosts || touch old-hosts
+      # 4) Сравниваем и прерываем workflow, если изменений нет
+      - name: Compare hosts
+        run: |
+          if cmp -s hosts old-hosts; then
+            echo "::notice ::No changes in AntiZapret hosts, skipping update"
+            exit 0
+          fi
 
-    # 4) Сравниваем и прерываем workflow, если изменений нет
-    - name: Compare hosts
-      run: |
-        if cmp -s hosts old-hosts; then
-          echo "::notice ::No changes in AntiZapret hosts, skipping update"
-          exit 0
-        fi
+      # 5) Генерируем mikrotik/dns-static.rsc
+      - name: Generate dns-static.rsc
+        run: bash scripts/generate-rsc.sh
 
-    # 5) Генерируем mikrotik/dns-static.rsc
-    - name: Generate dns-static.rsc
-      run: bash scripts/generate-rsc.sh
+      # 6) Коммитим и пушим .rsc и новый hosts
+      - name: Commit & Push dns-static.rsc and hosts snapshot
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add mikrotik/dns-static.rsc hosts
+          git diff --quiet --cached || git commit -m "Rebuild Mikrotik RSC: $cnt entries"
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:main
 
-    # 6) Коммитим и пушим .rsc и новый hosts
-    - name: Commit & Push dns-static.rsc and hosts snapshot
-      run: |
-        git config user.name "github-actions"
-        git config user.email "actions@github.com"
-        git add mikrotik/dns-static.rsc hosts
-        git diff --quiet --cached || git commit -m "Rebuild Mikrotik RSC: $cnt entries"
-        git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:main
+      # 7) Создаём тег и релиз, если были изменения
+      - name: Create GitHub Release
+        if: success()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if git diff --quiet --cached; then
+            echo "No changes, skipping release"
+            exit 0
+          fi
+
+          DATE=$(date +'%Y%m%d')
+          TAG="v$DATE"
+          CHANGELOG="Автоматическая сборка MikroTik RSC\nДобавлено $cnt записей"
+
+          git tag $TAG
+          git push origin $TAG
+
+          gh release create $TAG mikrotik/dns-static.rsc \
+            --title "DNS Static $TAG" \
+            --notes "$CHANGELOG"
