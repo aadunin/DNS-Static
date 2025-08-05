@@ -44,7 +44,7 @@ TAG="v$(date +'%Y%m%d')"
 {
   echo "## [$TAG] — $DATE"
   echo "Добавлено $cnt записей"
-  cat mikrotik/new-domains.txt | sed 's/^/- /'
+  sed 's/^/- /' mikrotik/new-domains.txt
   echo ""
 } >> CHANGELOG.md
 
