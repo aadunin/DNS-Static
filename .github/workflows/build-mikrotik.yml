@@ -3,6 +3,8 @@ name: Build Mikrotik RSC
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
   schedule:
     - cron: "0 0 * * *" # каждый день в 00:00 UTC
   workflow_dispatch:
