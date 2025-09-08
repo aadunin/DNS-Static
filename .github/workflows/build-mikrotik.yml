@@ -14,7 +14,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  DNS_TTL: 1d # можно менять TTL без правки скрипта
+  DNS_TTL: 1d
+  HOSTS_URL: https://raw.githubusercontent.com/pumPCin/AntiZapret/main/hosts
 
 jobs:
   build:
@@ -35,15 +36,17 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          curl -fSLS --retry 3 --retry-delay 2 -m 30 \
-            -o hosts \
-            https://raw.githubusercontent.com/pumPCin/AntiZapret/main/hosts
+          curl -fSLS --retry 3 --retry-delay 2 -m 30 -o hosts "$HOSTS_URL"
           if ! test -s hosts; then
             echo "::error ::Empty hosts file from source"
             exit 1
           fi
           if head -n 1 hosts | grep -qiE '</?html'; then
             echo "::error ::Source returned HTML instead of hosts"
+            exit 1
+          fi
+          if ! grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' hosts; then
+            echo "::error ::Hosts file format invalid"
             exit 1
           fi
 
@@ -76,7 +79,6 @@ jobs:
           mkdir -p mikrotik
           out="mikrotik/dns-static.rsc"
           echo '/ip dns static remove [find address-list="autohost"]' > "$out"
-
           tmp_pairs="$(mktemp)"
           grep -Ev '^(#|$)' hosts | while read -r ip rest; do
             for d in $rest; do
@@ -95,16 +97,15 @@ jobs:
               printf "%s %s\n" "$ip_addr" "$d_lc" >> "$tmp_pairs"
             done
           done
-
           cnt=0
           while read -r ip_addr d; do
             echo "/ip dns static add name=$d address=$ip_addr ttl=${DNS_TTL} address-list=autohost" >> "$out"
             cnt=$((cnt+1))
           done < <(sort -u "$tmp_pairs")
-
           echo "/log info \"[update-hosts] Added $cnt entries\"" >> "$out"
           echo "::notice ::Generated count=$cnt"
           echo "count=$cnt" >> "$GITHUB_OUTPUT"
+          rm -f "$tmp_pairs" old-hosts
 
       - name: Create pull request
         if: steps.cmp.outputs.changed == 'true'
@@ -124,9 +125,9 @@ jobs:
           delete-branch: true
 
       - name: Enable auto-merge for PR
-        if: steps.cmp.outputs.changed == 'true' && steps.cpr.outputs.pull-request-number
+        if: steps.cmp.outputs.changed == 'true' && steps.cpr.outputs.pull-request-url
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh pr merge ${{ steps.cpr.outputs.pull-request-number }} \
+          gh pr merge "${{ steps.cpr.outputs.pull-request-url }}" \
             --auto --squash --repo "${{ github.repository }}"
