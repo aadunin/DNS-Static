@@ -38,12 +38,10 @@ jobs:
           curl -fSLS --retry 3 --retry-delay 2 -m 30 \
             -o hosts \
             https://raw.githubusercontent.com/pumPCin/AntiZapret/main/hosts
-          # Минимальная валидация: файл не пуст и похоже содержит строки формата hosts
           if ! test -s hosts; then
             echo "::error ::Empty hosts file from source"
             exit 1
           fi
-          # Базовая проверка, чтобы не проглотить HTML-страницу ошибки
           if head -n 1 hosts | grep -qiE '</?html'; then
             echo "::error ::Source returned HTML instead of hosts"
             exit 1
@@ -80,19 +78,15 @@ jobs:
           echo '/ip dns static remove [find address-list="autohost"]' > "$out"
 
           tmp_pairs="$(mktemp)"
-          # Собираем пары и нормализуем: фильтры, lower-case домены, TEST-NET-1 для 0.0.0.0
           grep -Ev '^(#|$)' hosts | while read -r ip rest; do
             for d in $rest; do
-              # Пропускаем служебные локальные записи
               if [[ "$ip" == "127.0.0.1" && ( "$d" == "local" || "$d" == "localhost" || "$d" == "localhost.localdomain" ) ]]; then
                 continue
               fi
               if [[ "$ip" == "255.255.255.255" && "$d" == "broadcasthost" ]]; then
                 continue
               fi
-              # Приведение домена к нижнему регистру
               d_lc="$(printf '%s' "$d" | tr 'A-Z' 'a-z')"
-              # Безопасная подмена 0.0.0.0
               if [[ "$ip" == "0.0.0.0" ]]; then
                 ip_addr="192.0.2.1"
               else
@@ -102,7 +96,6 @@ jobs:
             done
           done
 
-          # Убираем дубликаты и сортируем для детерминированности
           cnt=0
           while read -r ip_addr d; do
             echo "/ip dns static add name=$d address=$ip_addr ttl=${DNS_TTL} address-list=autohost" >> "$out"
@@ -115,6 +108,7 @@ jobs:
 
       - name: Create pull request
         if: steps.cmp.outputs.changed == 'true'
+        id: cpr
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -128,7 +122,11 @@ jobs:
             mikrotik/dns-static.rsc
             hosts
           delete-branch: true
-          # При включенном Allow auto-merge GitHub сольет PR автоматически после выполнения требований защиты ветки
-          auto-merge-method: squash
-          # Необязательно: можно добавить метку, если у вас есть автоматизация на метки
-          # labels: auto-merge
+
+      - name: Enable auto-merge for PR
+        if: steps.cmp.outputs.changed == 'true' && steps.cpr.outputs.pull-request-number
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr merge ${{ steps.cpr.outputs.pull-request-number }} \
+            --auto --squash --repo "${{ github.repository }}"
