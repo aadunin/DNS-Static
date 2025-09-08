@@ -3,131 +3,66 @@ name: Build Mikrotik RSC
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
   schedule:
     - cron: "0 0 * * *" # каждый день в 00:00 UTC
   workflow_dispatch:
 
-concurrency:
-  group: mikrotik-rsc
-  cancel-in-progress: true
-
-env:
-  DNS_TTL: 1d
-  HOSTS_URL: https://raw.githubusercontent.com/pumPCin/AntiZapret/main/hosts
-
 jobs:
   build:
-    name: Build Mikrotik RSC
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-      checks: write
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v5
-        with:
-          persist-credentials: false
 
-      - name: Fetch latest hosts
-        shell: bash
-        run: |
-          set -euo pipefail
-          curl -fSLS --retry 3 --retry-delay 2 -m 30 -o hosts "$HOSTS_URL"
-          if ! test -s hosts; then
-            echo "::error ::Empty hosts file from source"
-            exit 1
-          fi
-          if head -n 1 hosts | grep -qiE '</?html'; then
-            echo "::error ::Source returned HTML instead of hosts"
-            exit 1
-          fi
-          if ! grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' hosts; then
-            echo "::error ::Hosts file format invalid"
-            exit 1
-          fi
+    # 1) Клонируем репозиторий
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        persist-credentials: false
 
-      - name: Fetch previous hosts snapshot
-        shell: bash
-        run: |
-          set -euo pipefail
-          curl -fSLS -m 30 \
-            -o old-hosts \
-            "https://raw.githubusercontent.com/${{ github.repository }}/main/hosts" \
-            || touch old-hosts
+    # 2) Скачиваем свежий hosts из AntiZapret
+    - name: Fetch latest hosts
+      run: |
+        curl -sSL -o hosts https://raw.githubusercontent.com/pumPCin/AntiZapret/main/hosts
 
-      - name: Compare hosts
-        id: cmp
-        shell: bash
-        run: |
-          if cmp -s hosts old-hosts; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "::notice ::No changes in AntiZapret hosts, skipping update"
-          else
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-          fi
+    # 3) Скачиваем предыдущий snapshot из своего репо
+    - name: Fetch previous hosts snapshot
+      run: |
+        curl -sSL -o old-hosts https://raw.githubusercontent.com/aadunin/DNS-Static/main/hosts || touch old-hosts
 
-      - name: Generate dns-static.rsc
-        if: steps.cmp.outputs.changed == 'true'
-        id: gen
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p mikrotik
-          out="mikrotik/dns-static.rsc"
-          echo '/ip dns static remove [find address-list="autohost"]' > "$out"
-          tmp_pairs="$(mktemp)"
-          grep -Ev '^(#|$)' hosts | while read -r ip rest; do
-            for d in $rest; do
-              if [[ "$ip" == "127.0.0.1" && ( "$d" == "local" || "$d" == "localhost" || "$d" == "localhost.localdomain" ) ]]; then
-                continue
-              fi
-              if [[ "$ip" == "255.255.255.255" && "$d" == "broadcasthost" ]]; then
-                continue
-              fi
-              d_lc="$(printf '%s' "$d" | tr 'A-Z' 'a-z')"
-              if [[ "$ip" == "0.0.0.0" ]]; then
-                ip_addr="192.0.2.1"
-              else
-                ip_addr="$ip"
-              fi
-              printf "%s %s\n" "$ip_addr" "$d_lc" >> "$tmp_pairs"
-            done
-          done
-          cnt=0
-          while read -r ip_addr d; do
-            echo "/ip dns static add name=$d address=$ip_addr ttl=${DNS_TTL} address-list=autohost" >> "$out"
+    # 4) Сравниваем и прерываем workflow, если изменений нет
+    - name: Compare hosts
+      run: |
+        if cmp -s hosts old-hosts; then
+          echo "::notice ::No changes in AntiZapret hosts, skipping update"
+          exit 0
+        fi
+
+    # 5) Генерируем mikrotik/dns-static.rsc
+    - name: Generate dns-static.rsc
+      run: |
+        mkdir -p mikrotik
+        echo "/ip dns static remove [find address-list=\"autohost\"]" > mikrotik/dns-static.rsc
+        declare -A seen
+        cnt=0
+        while read -r ip rest; do
+          for d in $rest; do
+            if [[ "$ip" == "127.0.0.1" && ( "$d" == "local" || "$d" == "localhost" || "$d" == "localhost.localdomain" ) ]]; then continue; fi
+            if [[ "$ip" == "255.255.255.255" && "$d" == "broadcasthost" ]]; then continue; fi
+            if [[ "$ip" == "0.0.0.0" ]]; then ip_addr="192.0.2.1"; else ip_addr="$ip"; fi
+            key="$ip_addr|$d"
+            if [[ -n "${seen[$key]}" ]]; then continue; fi
+            seen[$key]=1
+            echo "/ip dns static add name=$d address=$ip_addr ttl=1d address-list=autohost" >> mikrotik/dns-static.rsc
             cnt=$((cnt+1))
-          done < <(sort -u "$tmp_pairs")
-          echo "/log info \"[update-hosts] Added $cnt entries\"" >> "$out"
-          echo "::notice ::Generated count=$cnt"
-          echo "count=$cnt" >> "$GITHUB_OUTPUT"
-          rm -f "$tmp_pairs" old-hosts
+          done
+        done < <(grep -Ev '^(#|$)' hosts)
+        echo "/log info \"[update-hosts] Added $cnt entries\"" >> mikrotik/dns-static.rsc
+        echo ":: Generated $cnt unique entries"
 
-      - name: Create pull request
-        if: steps.cmp.outputs.changed == 'true'
-        id: cpr
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          branch: bot/update-mikrotik-rsc
-          title: "Rebuild Mikrotik RSC: ${{ steps.gen.outputs.count }} entries"
-          commit-message: "Rebuild Mikrotik RSC: ${{ steps.gen.outputs.count }} entries"
-          body: |
-            Auto-generated update from AntiZapret.
-            Entries: ${{ steps.gen.outputs.count }}
-          add-paths: |
-            mikrotik/dns-static.rsc
-            hosts
-          delete-branch: true
-
-      - name: Enable auto-merge for PR
-        if: steps.cmp.outputs.changed == 'true' && steps.cpr.outputs.pull-request-url
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh pr merge "${{ steps.cpr.outputs.pull-request-url }}" \
-            --auto --squash --repo "${{ github.repository }}"
+    # 6) Коммитим и пушим .rsc и новый hosts
+    - name: Commit & Push dns-static.rsc and hosts snapshot
+      run: |
+        git config user.name "github-actions"
+        git config user.email "actions@github.com"
+        git add mikrotik/dns-static.rsc hosts
+        git diff --quiet --cached || git commit -m "Rebuild Mikrotik RSC: $cnt entries"
+        git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:main
