@@ -1,4 +1,12 @@
 /ip dns static remove [find address-list="autohost"]
+/ip dns static add name=plugins.jetbrains.com address=107.150.34.100 ttl=1d address-list=autohost
+/ip dns static add name=builds.parsec.app address=107.150.34.99 ttl=1d address-list=autohost
+/ip dns static add name=web.archive.org address=142.54.189.106 ttl=1d address-list=autohost
+/ip dns static add name=b.i.instagram.com address=157.240.245.174 ttl=1d address-list=autohost
+/ip dns static add name=help.instagram.com address=157.240.245.174 ttl=1d address-list=autohost
+/ip dns static add name=instagram.com address=157.240.245.174 ttl=1d address-list=autohost
+/ip dns static add name=www.instagram.com address=157.240.245.174 ttl=1d address-list=autohost
+/ip dns static add name=z-p42-chat-e2ee-ig.facebook.com address=157.240.245.174 ttl=1d address-list=autohost
 /ip dns static add name=2no.co address=192.0.2.1 ttl=1d address-list=autohost
 /ip dns static add name=bc.ax address=192.0.2.1 ttl=1d address-list=autohost
 /ip dns static add name=ed.tc address=192.0.2.1 ttl=1d address-list=autohost
@@ -10,14 +18,6 @@
 /ip dns static add name=maper.info address=192.0.2.1 ttl=1d address-list=autohost
 /ip dns static add name=wl.gl address=192.0.2.1 ttl=1d address-list=autohost
 /ip dns static add name=yip.su address=192.0.2.1 ttl=1d address-list=autohost
-/ip dns static add name=plugins.jetbrains.com address=107.150.34.100 ttl=1d address-list=autohost
-/ip dns static add name=builds.parsec.app address=107.150.34.99 ttl=1d address-list=autohost
-/ip dns static add name=web.archive.org address=142.54.189.106 ttl=1d address-list=autohost
-/ip dns static add name=b.i.instagram.com address=157.240.245.174 ttl=1d address-list=autohost
-/ip dns static add name=help.instagram.com address=157.240.245.174 ttl=1d address-list=autohost
-/ip dns static add name=instagram.com address=157.240.245.174 ttl=1d address-list=autohost
-/ip dns static add name=www.instagram.com address=157.240.245.174 ttl=1d address-list=autohost
-/ip dns static add name=z-p42-chat-e2ee-ig.facebook.com address=157.240.245.174 ttl=1d address-list=autohost
 /ip dns static add name=aisandbox-pa.googleapis.com address=204.12.192.219 ttl=1d address-list=autohost
 /ip dns static add name=android.chat.openai.com address=204.12.192.219 ttl=1d address-list=autohost
 /ip dns static add name=api.fitbit.com address=204.12.192.219 ttl=1d address-list=autohost
