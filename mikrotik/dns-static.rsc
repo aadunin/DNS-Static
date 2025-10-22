@@ -26,7 +26,9 @@
 /ip dns static add name=z-p42-chat-e2ee-ig.facebook.com address=157.240.245.174 ttl=1d address-list=autohost
 /ip dns static add name=rutor.info address=172.64.33.155 ttl=1d address-list=autohost
 /ip dns static add name=rutor.is address=173.245.59.155 ttl=1d address-list=autohost
+/ip dns static add name=4pda.to address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=ab.chatgpt.com address=185.246.223.127 ttl=1d address-list=autohost
+/ip dns static add name=account.jetbrains.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=accounts.spotify.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=accounts.x.ai address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=aet.spotify.com address=185.246.223.127 ttl=1d address-list=autohost
@@ -40,9 +42,9 @@
 /ip dns static add name=api.anthropic.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=api.elevenlabs.io address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=api.fitbit.com address=185.246.223.127 ttl=1d address-list=autohost
-/ip dns static add name=api.github.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=api.imgur.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=api.individual.githubcopilot.com address=185.246.223.127 ttl=1d address-list=autohost
+/ip dns static add name=api.jetbrains.ai address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=api.openai.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=api.spotify.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=api.squareup.com address=185.246.223.127 ttl=1d address-list=autohost
@@ -50,6 +52,8 @@
 /ip dns static add name=api.trae.ai address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=api.us.elevenlabs.io address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=api16-normal-alisg.mchost.guru address=185.246.223.127 ttl=1d address-list=autohost
+/ip dns static add name=app.4pda.to address=185.246.223.127 ttl=1d address-list=autohost
+/ip dns static add name=appbk.4pda.to address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=appresolve.spotify.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=assets.grok.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=auth.anthropic.com address=185.246.223.127 ttl=1d address-list=autohost
@@ -116,6 +120,7 @@
 /ip dns static add name=profile.broadcom.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=proxy.individual.githubcopilot.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=resources.tidal.com address=185.246.223.127 ttl=1d address-list=autohost
+/ip dns static add name=s.4pda.to address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=s.deepl.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=security.id.supercell.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=shield.deepl.com address=185.246.223.127 ttl=1d address-list=autohost
@@ -128,8 +133,10 @@
 /ip dns static add name=tcr9i.chat.openai.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=trae-api-sg.mchost.guru address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=tria.ge address=185.246.223.127 ttl=1d address-list=autohost
+/ip dns static add name=upsx.weather.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=videos.openai.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=w.deepl.com address=185.246.223.127 ttl=1d address-list=autohost
+/ip dns static add name=weather.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=webrtc.chatgpt.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=write-free.www.deepl.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=www.deepl.com address=185.246.223.127 ttl=1d address-list=autohost
@@ -177,9 +184,10 @@
 /ip dns static add name=www.tiktok.com address=50.7.85.219 ttl=1d address-list=autohost
 /ip dns static add name=datalore.jetbrains.com address=50.7.85.221 ttl=1d address-list=autohost
 /ip dns static add name=www.canva.com address=50.7.85.222 ttl=1d address-list=autohost
+/ip dns static add name=api.github.com address=50.7.87.84 ttl=1d address-list=autohost
 /ip dns static add name=tracker.openbittorrent.com address=52.223.13.41 ttl=1d address-list=autohost
 /ip dns static add name=api.manus.im address=64.188.98.242 ttl=1d address-list=autohost
 /ip dns static add name=gamea.clashofclans.com address=64.188.98.242 ttl=1d address-list=autohost
 /ip dns static add name=yt4.ggpht.com address=64.233.164.132 ttl=1d address-list=autohost
 /ip dns static add name=yt3.ggpht.com address=64.233.164.198 ttl=1d address-list=autohost
-/log info "[update-hosts] Added 183 entries"
+/log info "[update-hosts] Added 191 entries"
