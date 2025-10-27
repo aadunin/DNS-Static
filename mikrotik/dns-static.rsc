@@ -7,17 +7,21 @@
 /ip dns static add name=aistudio.google.com address=134.0.118.88 ttl=1d address-list=autohost
 /ip dns static add name=alkalimakersuite-pa.clients6.google.com address=134.0.118.88 ttl=1d address-list=autohost
 /ip dns static add name=assistant-s3-pa.googleapis.com address=134.0.118.88 ttl=1d address-list=autohost
-/ip dns static add name=epicgames.com address=134.0.118.88 ttl=1d address-list=autohost
 /ip dns static add name=generativelanguage.googleapis.com address=134.0.118.88 ttl=1d address-list=autohost
-/ip dns static add name=ol.epicgames.com address=134.0.118.88 ttl=1d address-list=autohost
-/ip dns static add name=on.epicgames.com address=134.0.118.88 ttl=1d address-list=autohost
-/ip dns static add name=payment-website-pci.ol.epicgames.com address=134.0.118.88 ttl=1d address-list=autohost
-/ip dns static add name=perf.store.on.epicgames.com address=134.0.118.88 ttl=1d address-list=autohost
 /ip dns static add name=proactivebackend-pa.googleapis.com address=134.0.118.88 ttl=1d address-list=autohost
-/ip dns static add name=store.epicgames.com address=134.0.118.88 ttl=1d address-list=autohost
-/ip dns static add name=store.on.epicgames.com address=134.0.118.88 ttl=1d address-list=autohost
-/ip dns static add name=tracking.epicgames.com address=134.0.118.88 ttl=1d address-list=autohost
 /ip dns static add name=webchannel-alkalimakersuite-pa.clients6.google.com address=134.0.118.88 ttl=1d address-list=autohost
+/ip dns static add name=ecosec.on.epicgames.com address=142.54.189.106 ttl=1d address-list=autohost
+/ip dns static add name=epicgames.com address=142.54.189.106 ttl=1d address-list=autohost
+/ip dns static add name=merchantpool1.epicgames.com address=142.54.189.106 ttl=1d address-list=autohost
+/ip dns static add name=ol.epicgames.com address=142.54.189.106 ttl=1d address-list=autohost
+/ip dns static add name=on.epicgames.com address=142.54.189.106 ttl=1d address-list=autohost
+/ip dns static add name=payment-website-pci.ol.epicgames.com address=142.54.189.106 ttl=1d address-list=autohost
+/ip dns static add name=perf.store.on.epicgames.com address=142.54.189.106 ttl=1d address-list=autohost
+/ip dns static add name=static-assets-prod.epicgames.com address=142.54.189.106 ttl=1d address-list=autohost
+/ip dns static add name=store.epicgames.com address=142.54.189.106 ttl=1d address-list=autohost
+/ip dns static add name=store.on.epicgames.com address=142.54.189.106 ttl=1d address-list=autohost
+/ip dns static add name=talon-service-prod.ecosec.on.epicgames.com address=142.54.189.106 ttl=1d address-list=autohost
+/ip dns static add name=tracking.epicgames.com address=142.54.189.106 ttl=1d address-list=autohost
 /ip dns static add name=web.archive.org address=142.54.189.106 ttl=1d address-list=autohost
 /ip dns static add name=b.i.instagram.com address=157.240.245.174 ttl=1d address-list=autohost
 /ip dns static add name=help.instagram.com address=157.240.245.174 ttl=1d address-list=autohost
@@ -187,4 +191,4 @@
 /ip dns static add name=gamea.clashofclans.com address=64.188.98.242 ttl=1d address-list=autohost
 /ip dns static add name=yt4.ggpht.com address=64.233.164.132 ttl=1d address-list=autohost
 /ip dns static add name=yt3.ggpht.com address=64.233.164.198 ttl=1d address-list=autohost
-/log info "[update-hosts] Added 188 entries"
+/log info "[update-hosts] Added 192 entries"
