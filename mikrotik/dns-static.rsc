@@ -9,6 +9,7 @@
 /ip dns static add name=assistant-s3-pa.googleapis.com address=134.0.118.88 ttl=1d address-list=autohost
 /ip dns static add name=generativelanguage.googleapis.com address=134.0.118.88 ttl=1d address-list=autohost
 /ip dns static add name=proactivebackend-pa.googleapis.com address=134.0.118.88 ttl=1d address-list=autohost
+/ip dns static add name=robinfrontend-pa.googleapis.com address=134.0.118.88 ttl=1d address-list=autohost
 /ip dns static add name=webchannel-alkalimakersuite-pa.clients6.google.com address=134.0.118.88 ttl=1d address-list=autohost
 /ip dns static add name=ecosec.on.epicgames.com address=142.54.189.106 ttl=1d address-list=autohost
 /ip dns static add name=epicgames.com address=142.54.189.106 ttl=1d address-list=autohost
@@ -175,15 +176,6 @@
 /ip dns static add name=xsts.auth.xboxlive.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=controlplane.tailscale.com address=185.87.51.182 ttl=1d address-list=autohost
 /ip dns static add name=2no.co address=192.0.2.1 ttl=1d address-list=autohost
-/ip dns static add name=adfox.yandex.ru address=192.0.2.1 ttl=1d address-list=autohost
-/ip dns static add name=adfstat.yandex.ru address=192.0.2.1 ttl=1d address-list=autohost
-/ip dns static add name=ads-api.tiktok.com address=192.0.2.1 ttl=1d address-list=autohost
-/ip dns static add name=ads-api.twitter.com address=192.0.2.1 ttl=1d address-list=autohost
-/ip dns static add name=ads-dev.pinterest.com address=192.0.2.1 ttl=1d address-list=autohost
-/ip dns static add name=ads-sg.tiktok.com address=192.0.2.1 ttl=1d address-list=autohost
-/ip dns static add name=amc.yandex.ru address=192.0.2.1 ttl=1d address-list=autohost
-/ip dns static add name=an.yandex.ru address=192.0.2.1 ttl=1d address-list=autohost
-/ip dns static add name=appmetrica.yandex.ru address=192.0.2.1 ttl=1d address-list=autohost
 /ip dns static add name=bc.ax address=192.0.2.1 ttl=1d address-list=autohost
 /ip dns static add name=ed.tc address=192.0.2.1 ttl=1d address-list=autohost
 /ip dns static add name=ezstat.ru address=192.0.2.1 ttl=1d address-list=autohost
@@ -191,11 +183,7 @@
 /ip dns static add name=iplis.ru address=192.0.2.1 ttl=1d address-list=autohost
 /ip dns static add name=iplog.co address=192.0.2.1 ttl=1d address-list=autohost
 /ip dns static add name=iplogger.org address=192.0.2.1 ttl=1d address-list=autohost
-/ip dns static add name=log16-platform-ycru.tiktokv.com address=192.0.2.1 ttl=1d address-list=autohost
 /ip dns static add name=maper.info address=192.0.2.1 ttl=1d address-list=autohost
-/ip dns static add name=mc.yandex.ru address=192.0.2.1 ttl=1d address-list=autohost
-/ip dns static add name=rezvorck.github.io address=192.0.2.1 ttl=1d address-list=autohost
-/ip dns static add name=tigr1234566.github.io address=192.0.2.1 ttl=1d address-list=autohost
 /ip dns static add name=wl.gl address=192.0.2.1 ttl=1d address-list=autohost
 /ip dns static add name=yip.su address=192.0.2.1 ttl=1d address-list=autohost
 /ip dns static add name=mail.proton.me address=3.66.189.153 ttl=1d address-list=autohost
@@ -219,4 +207,4 @@
 /ip dns static add name=gamea.clashofclans.com address=64.188.98.242 ttl=1d address-list=autohost
 /ip dns static add name=yt4.ggpht.com address=64.233.164.132 ttl=1d address-list=autohost
 /ip dns static add name=yt3.ggpht.com address=64.233.164.198 ttl=1d address-list=autohost
-/log info "[update-hosts] Added 220 entries"
+/log info "[update-hosts] Added 208 entries"
