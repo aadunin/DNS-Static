@@ -106,6 +106,7 @@
 /ip dns static add name=gemini.google.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=geolocation.onetrust.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=gew1-spclient.spotify.com address=185.246.223.127 ttl=1d address-list=autohost
+/ip dns static add name=gql.twitch.tv address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=grok.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=guidedhacking.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=help.elevenlabs.io address=185.246.223.127 ttl=1d address-list=autohost
@@ -186,25 +187,30 @@
 /ip dns static add name=maper.info address=192.0.2.1 ttl=1d address-list=autohost
 /ip dns static add name=wl.gl address=192.0.2.1 ttl=1d address-list=autohost
 /ip dns static add name=yip.su address=192.0.2.1 ttl=1d address-list=autohost
-/ip dns static add name=mail.proton.me address=3.66.189.153 ttl=1d address-list=autohost
-/ip dns static add name=protonmail.com address=3.66.189.153 ttl=1d address-list=autohost
+/ip dns static add name=account-api.proton.me address=45.95.233.23 ttl=1d address-list=autohost
+/ip dns static add name=account.proton.me address=45.95.233.23 ttl=1d address-list=autohost
 /ip dns static add name=accounts.supercell.com address=45.95.233.23 ttl=1d address-list=autohost
 /ip dns static add name=eu.posthog.com address=45.95.233.23 ttl=1d address-list=autohost
 /ip dns static add name=game.clashroyaleapp.com address=45.95.233.23 ttl=1d address-list=autohost
 /ip dns static add name=game.mocogame.com address=45.95.233.23 ttl=1d address-list=autohost
 /ip dns static add name=images.tidal.com address=45.95.233.23 ttl=1d address-list=autohost
+/ip dns static add name=mail.proton.me address=45.95.233.23 ttl=1d address-list=autohost
+/ip dns static add name=neutral.ttwstatic.com address=45.95.233.23 ttl=1d address-list=autohost
 /ip dns static add name=operator.chatgpt.com address=45.95.233.23 ttl=1d address-list=autohost
+/ip dns static add name=proton.me address=45.95.233.23 ttl=1d address-list=autohost
 /ip dns static add name=rewards.bing.com address=45.95.233.23 ttl=1d address-list=autohost
 /ip dns static add name=test.dns.malw.link address=45.95.233.23 ttl=1d address-list=autohost
+/ip dns static add name=tiktok.com address=45.95.233.23 ttl=1d address-list=autohost
+/ip dns static add name=tiktokcdn.com address=45.95.233.23 ttl=1d address-list=autohost
+/ip dns static add name=tiktokv.com address=45.95.233.23 ttl=1d address-list=autohost
+/ip dns static add name=ttwstatic.com address=45.95.233.23 ttl=1d address-list=autohost
 /ip dns static add name=usher.ttvnw.net address=45.95.233.23 ttl=1d address-list=autohost
+/ip dns static add name=vt.tiktok.com address=45.95.233.23 ttl=1d address-list=autohost
 /ip dns static add name=www.dyson.com address=45.95.233.23 ttl=1d address-list=autohost
 /ip dns static add name=www.dyson.fr address=45.95.233.23 ttl=1d address-list=autohost
-/ip dns static add name=www.tiktok.com address=50.7.85.219 ttl=1d address-list=autohost
 /ip dns static add name=datalore.jetbrains.com address=50.7.85.221 ttl=1d address-list=autohost
 /ip dns static add name=www.canva.com address=50.7.85.222 ttl=1d address-list=autohost
 /ip dns static add name=tracker.openbittorrent.com address=52.223.13.41 ttl=1d address-list=autohost
 /ip dns static add name=api.manus.im address=64.188.98.242 ttl=1d address-list=autohost
 /ip dns static add name=gamea.clashofclans.com address=64.188.98.242 ttl=1d address-list=autohost
-/ip dns static add name=yt4.ggpht.com address=64.233.164.132 ttl=1d address-list=autohost
-/ip dns static add name=yt3.ggpht.com address=64.233.164.198 ttl=1d address-list=autohost
-/log info "[update-hosts] Added 208 entries"
+/log info "[update-hosts] Added 214 entries"
