@@ -92,18 +92,21 @@
 185.246.223.127 proxy.individual.githubcopilot.com
 #
 # Google Services:
-134.0.118.88 aisandbox-pa.googleapis.com
-134.0.118.88 aistudio.google.com
-134.0.118.88 alkalimakersuite-pa.clients6.google.com
-134.0.118.88 assistant-s3-pa.googleapis.com
-134.0.118.88 generativelanguage.googleapis.com
-134.0.118.88 proactivebackend-pa.googleapis.com
-134.0.118.88 robinfrontend-pa.googleapis.com
-134.0.118.88 webchannel-alkalimakersuite-pa.clients6.google.com
+64.233.164.132 yt4.ggpht.com
+64.233.164.198 yt3.ggpht.com
+158.255.3.181 aisandbox-pa.googleapis.com
+158.255.3.181 aistudio.google.com
+158.255.3.181 alkalimakersuite-pa.clients6.google.com
+158.255.3.181 assistant-s3-pa.googleapis.com
+158.255.3.181 generativelanguage.googleapis.com
+158.255.3.181 proactivebackend-pa.googleapis.com
+158.255.3.181 robinfrontend-pa.googleapis.com
+158.255.3.181 webchannel-alkalimakersuite-pa.clients6.google.com
 185.246.223.127 aitestkitchen.withgoogle.com
 185.246.223.127 gemini.google.com
 185.246.223.127 jules.google.com
 185.246.223.127 labs.google
+185.246.223.127 google.com
 185.246.223.127 notebooklm.google
 185.246.223.127 notebooklm.google.com
 185.246.223.127 o.pki.goog
@@ -146,10 +149,10 @@
 185.246.223.127 xsts.auth.xboxlive.com
 #
 # Proton:
-45.95.233.23 account-api.proton.me
-45.95.233.23 account.proton.me
-45.95.233.23 mail.proton.me
-45.95.233.23 proton.me
+185.246.223.127 account-api.proton.me
+185.246.223.127 account.proton.me
+185.246.223.127 mail.proton.me
+185.246.223.127 proton.me
 #
 # Spotify:
 185.246.223.127 accounts.spotify.com
@@ -211,8 +214,8 @@
 185.246.223.127 trae-api-sg.mchost.guru
 #
 # Twitch:
-185.246.223.127 gql.twitch.tv
 45.95.233.23 usher.ttvnw.net
+185.246.223.127 gql.twitch.tv
 #
 # Weather.com:
 185.246.223.127 upsx.weather.com
