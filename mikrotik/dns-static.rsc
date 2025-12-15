@@ -36,6 +36,7 @@
 /ip dns static add name=aitestkitchen.withgoogle.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=alkalimakersuite-pa.clients6.google.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=android.chat.openai.com address=185.246.223.127 ttl=1d address-list=autohost
+/ip dns static add name=anydesk.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=ap-gew1.spotify.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=api-free.deepl.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=api-global.squareup.com address=185.246.223.127 ttl=1d address-list=autohost
@@ -222,4 +223,4 @@
 /ip dns static add name=gamea.clashofclans.com address=64.188.98.242 ttl=1d address-list=autohost
 /ip dns static add name=yt4.ggpht.com address=64.233.164.132 ttl=1d address-list=autohost
 /ip dns static add name=yt3.ggpht.com address=64.233.164.198 ttl=1d address-list=autohost
-/log info "[update-hosts] Added 223 entries"
+/log info "[update-hosts] Added 224 entries"
