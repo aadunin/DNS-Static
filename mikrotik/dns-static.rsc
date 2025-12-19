@@ -3,18 +3,28 @@
 /ip dns static add name=builds.parsec.app address=107.150.34.99 ttl=1d address-list=autohost
 /ip dns static add name=game.squadbustersgame.com address=108.61.167.26 ttl=1d address-list=autohost
 /ip dns static add name=ntc.party address=130.255.77.28 ttl=1d address-list=autohost
+/ip dns static add name=account-api.proton.me address=142.54.189.106 ttl=1d address-list=autohost
+/ip dns static add name=account.proton.me address=142.54.189.106 ttl=1d address-list=autohost
+/ip dns static add name=calendar.proton.me address=142.54.189.106 ttl=1d address-list=autohost
+/ip dns static add name=docs.proton.me address=142.54.189.106 ttl=1d address-list=autohost
+/ip dns static add name=drive.proton.me address=142.54.189.106 ttl=1d address-list=autohost
 /ip dns static add name=ecosec.on.epicgames.com address=142.54.189.106 ttl=1d address-list=autohost
 /ip dns static add name=epicgames.com address=142.54.189.106 ttl=1d address-list=autohost
+/ip dns static add name=lumo.proton.me address=142.54.189.106 ttl=1d address-list=autohost
+/ip dns static add name=mail.proton.me address=142.54.189.106 ttl=1d address-list=autohost
 /ip dns static add name=merchantpool1.epicgames.com address=142.54.189.106 ttl=1d address-list=autohost
 /ip dns static add name=ol.epicgames.com address=142.54.189.106 ttl=1d address-list=autohost
 /ip dns static add name=on.epicgames.com address=142.54.189.106 ttl=1d address-list=autohost
+/ip dns static add name=pass.proton.me address=142.54.189.106 ttl=1d address-list=autohost
 /ip dns static add name=payment-website-pci.ol.epicgames.com address=142.54.189.106 ttl=1d address-list=autohost
 /ip dns static add name=perf.store.on.epicgames.com address=142.54.189.106 ttl=1d address-list=autohost
+/ip dns static add name=proton.me address=142.54.189.106 ttl=1d address-list=autohost
 /ip dns static add name=static-assets-prod.epicgames.com address=142.54.189.106 ttl=1d address-list=autohost
 /ip dns static add name=store.epicgames.com address=142.54.189.106 ttl=1d address-list=autohost
 /ip dns static add name=store.on.epicgames.com address=142.54.189.106 ttl=1d address-list=autohost
 /ip dns static add name=talon-service-prod.ecosec.on.epicgames.com address=142.54.189.106 ttl=1d address-list=autohost
 /ip dns static add name=tracking.epicgames.com address=142.54.189.106 ttl=1d address-list=autohost
+/ip dns static add name=wallet.proton.me address=142.54.189.106 ttl=1d address-list=autohost
 /ip dns static add name=web.archive.org address=142.54.189.106 ttl=1d address-list=autohost
 /ip dns static add name=b.i.instagram.com address=157.240.245.174 ttl=1d address-list=autohost
 /ip dns static add name=help.instagram.com address=157.240.245.174 ttl=1d address-list=autohost
@@ -25,9 +35,7 @@
 /ip dns static add name=rutor.info address=172.64.33.155 ttl=1d address-list=autohost
 /ip dns static add name=rutor.is address=173.245.59.155 ttl=1d address-list=autohost
 /ip dns static add name=ab.chatgpt.com address=185.246.223.127 ttl=1d address-list=autohost
-/ip dns static add name=account-api.proton.me address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=account.jetbrains.com address=185.246.223.127 ttl=1d address-list=autohost
-/ip dns static add name=account.proton.me address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=accounts.spotify.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=accounts.x.ai address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=aet.spotify.com address=185.246.223.127 ttl=1d address-list=autohost
@@ -65,7 +73,6 @@
 /ip dns static add name=auth.tidal.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=auth0.openai.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=backend.deepl.com address=185.246.223.127 ttl=1d address-list=autohost
-/ip dns static add name=calendar.proton.me address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=cdn.auth0.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=cdn.id.supercell.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=cdn.oaistatic.com address=185.246.223.127 ttl=1d address-list=autohost
@@ -79,14 +86,13 @@
 /ip dns static add name=console.anthropic.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=constellation.linear.app address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=copilot.microsoft.com address=185.246.223.127 ttl=1d address-list=autohost
+/ip dns static add name=corp.google.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=dd.tidal.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=deepl.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=deezer.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=developer.nvidia.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=dict.deepl.com address=185.246.223.127 ttl=1d address-list=autohost
-/ip dns static add name=docs.proton.me address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=download.jetbrains.com address=185.246.223.127 ttl=1d address-list=autohost
-/ip dns static add name=drive.proton.me address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=dzcdn.net address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=edgeservices.bing.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=elevenlabs.io address=185.246.223.127 ttl=1d address-list=autohost
@@ -109,7 +115,9 @@
 /ip dns static add name=generativelanguage.googleapis.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=geolocation.onetrust.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=gew1-spclient.spotify.com address=185.246.223.127 ttl=1d address-list=autohost
+/ip dns static add name=google-analytics.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=google.com address=185.246.223.127 ttl=1d address-list=autohost
+/ip dns static add name=googleusercontent.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=gql.twitch.tv address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=grok.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=guidedhacking.com address=185.246.223.127 ttl=1d address-list=autohost
@@ -127,8 +135,6 @@
 /ip dns static add name=login.app.spotify.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=login.tidal.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=login5.spotify.com address=185.246.223.127 ttl=1d address-list=autohost
-/ip dns static add name=lumo.proton.me address=185.246.223.127 ttl=1d address-list=autohost
-/ip dns static add name=mail.proton.me address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=marketplace.windsurf.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=notebooklm.google address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=notebooklm.google.com address=185.246.223.127 ttl=1d address-list=autohost
@@ -136,12 +142,10 @@
 /ip dns static add name=oneshot-free.www.deepl.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=open.spotify.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=ott.deepl.com address=185.246.223.127 ttl=1d address-list=autohost
-/ip dns static add name=pass.proton.me address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=payment.deezer.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=platform.openai.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=proactivebackend-pa.googleapis.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=profile.broadcom.com address=185.246.223.127 ttl=1d address-list=autohost
-/ip dns static add name=proton.me address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=proxy.individual.githubcopilot.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=public.linear.app address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=resources.tidal.com address=185.246.223.127 ttl=1d address-list=autohost
@@ -166,7 +170,6 @@
 /ip dns static add name=upsx.weather.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=videos.openai.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=w.deepl.com address=185.246.223.127 ttl=1d address-list=autohost
-/ip dns static add name=wallet.proton.me address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=weather.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=web-backend.codeium.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=webchannel-alkalimakersuite-pa.clients6.google.com address=185.246.223.127 ttl=1d address-list=autohost
@@ -174,6 +177,7 @@
 /ip dns static add name=windsurf-stable.codeium.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=windsurf-telemetry.codeium.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=windsurf.com address=185.246.223.127 ttl=1d address-list=autohost
+/ip dns static add name=withgoogle.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=write-free.www.deepl.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=www.deepl.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=www.deezer.com address=185.246.223.127 ttl=1d address-list=autohost
@@ -223,4 +227,4 @@
 /ip dns static add name=gamea.clashofclans.com address=64.188.98.242 ttl=1d address-list=autohost
 /ip dns static add name=yt4.ggpht.com address=64.233.164.132 ttl=1d address-list=autohost
 /ip dns static add name=yt3.ggpht.com address=64.233.164.198 ttl=1d address-list=autohost
-/log info "[update-hosts] Added 224 entries"
+/log info "[update-hosts] Added 228 entries"
