@@ -211,8 +211,6 @@
 /ip dns static add name=xgpuweb.gssv-play-prod.xboxlive.com address=185.87.51.182 ttl=1d address-list=autohost
 /ip dns static add name=xgpuwebf2p.gssv-play-prod.xboxlive.com address=185.87.51.182 ttl=1d address-list=autohost
 /ip dns static add name=xsts.auth.xboxlive.com address=185.87.51.182 ttl=1d address-list=autohost
-/ip dns static add name=yt3.ggpht.com address=185.87.51.182 ttl=1d address-list=autohost
-/ip dns static add name=yt4.ggpht.com address=185.87.51.182 ttl=1d address-list=autohost
 /ip dns static add name=2no.co address=192.0.2.1 ttl=1d address-list=autohost
 /ip dns static add name=bc.ax address=192.0.2.1 ttl=1d address-list=autohost
 /ip dns static add name=ed.tc address=192.0.2.1 ttl=1d address-list=autohost
@@ -229,4 +227,4 @@
 /ip dns static add name=images.pump.fun address=45.95.233.23 ttl=1d address-list=autohost
 /ip dns static add name=tracker.openbittorrent.com address=52.223.13.41 ttl=1d address-list=autohost
 /ip dns static add name=gamea.clashofclans.com address=64.188.98.242 ttl=1d address-list=autohost
-/log info "[update-hosts] Added 230 entries"
+/log info "[update-hosts] Added 228 entries"
