@@ -254,6 +254,7 @@
 /ip dns static add name=aisandbox-pa.googleapis.com address=185.87.51.182 ttl=1d address-list=autohost
 /ip dns static add name=aistudio.google.com address=185.87.51.182 ttl=1d address-list=autohost
 /ip dns static add name=aitestkitchen.withgoogle.com address=185.87.51.182 ttl=1d address-list=autohost
+/ip dns static add name=ak.epicgames.com address=185.87.51.182 ttl=1d address-list=autohost
 /ip dns static add name=alkalimakersuite-pa.clients6.google.com address=185.87.51.182 ttl=1d address-list=autohost
 /ip dns static add name=android.chat.openai.com address=185.87.51.182 ttl=1d address-list=autohost
 /ip dns static add name=api-free.deepl.com address=185.87.51.182 ttl=1d address-list=autohost
@@ -262,6 +263,7 @@
 /ip dns static add name=api-sg-central.trae.ai address=185.87.51.182 ttl=1d address-list=autohost
 /ip dns static add name=api.anthropic.com address=185.87.51.182 ttl=1d address-list=autohost
 /ip dns static add name=api.elevenlabs.io address=185.87.51.182 ttl=1d address-list=autohost
+/ip dns static add name=api.epicgames.dev address=185.87.51.182 ttl=1d address-list=autohost
 /ip dns static add name=api.fitbit.com address=185.87.51.182 ttl=1d address-list=autohost
 /ip dns static add name=api.imgur.com address=185.87.51.182 ttl=1d address-list=autohost
 /ip dns static add name=api.jetbrains.ai address=185.87.51.182 ttl=1d address-list=autohost
@@ -295,6 +297,7 @@
 /ip dns static add name=copilot.microsoft.com address=185.87.51.182 ttl=1d address-list=autohost
 /ip dns static add name=corp.google.com address=185.87.51.182 ttl=1d address-list=autohost
 /ip dns static add name=datalore.jetbrains.com address=185.87.51.182 ttl=1d address-list=autohost
+/ip dns static add name=datarouter.ol.epicgames.com address=185.87.51.182 ttl=1d address-list=autohost
 /ip dns static add name=dd.tidal.com address=185.87.51.182 ttl=1d address-list=autohost
 /ip dns static add name=deepl.com address=185.87.51.182 ttl=1d address-list=autohost
 /ip dns static add name=deezer.com address=185.87.51.182 ttl=1d address-list=autohost
@@ -338,6 +341,9 @@
 /ip dns static add name=ita-free.www.deepl.com address=185.87.51.182 ttl=1d address-list=autohost
 /ip dns static add name=jules.google.com address=185.87.51.182 ttl=1d address-list=autohost
 /ip dns static add name=labs.google address=185.87.51.182 ttl=1d address-list=autohost
+/ip dns static add name=launcher.store.epicgames.com address=185.87.51.182 ttl=1d address-list=autohost
+/ip dns static add name=library-service.live.use1a.on.epicgames.com address=185.87.51.182 ttl=1d address-list=autohost
+/ip dns static add name=lightswitch-public-service-prod06.ol.epicgames.com address=185.87.51.182 ttl=1d address-list=autohost
 /ip dns static add name=linear.app address=185.87.51.182 ttl=1d address-list=autohost
 /ip dns static add name=link.tidal.com address=185.87.51.182 ttl=1d address-list=autohost
 /ip dns static add name=listen.tidal.com address=185.87.51.182 ttl=1d address-list=autohost
@@ -431,4 +437,4 @@
 /ip dns static add name=images.pump.fun address=45.95.233.23 ttl=1d address-list=autohost
 /ip dns static add name=tracker.openbittorrent.com address=52.223.13.41 ttl=1d address-list=autohost
 /ip dns static add name=gamea.clashofclans.com address=64.188.98.242 ttl=1d address-list=autohost
-/log info "[update-hosts] Added 432 entries"
+/log info "[update-hosts] Added 438 entries"
