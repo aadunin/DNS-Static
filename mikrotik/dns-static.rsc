@@ -426,7 +426,6 @@
 /ip dns static add name=linear.app address=95.182.120.241 ttl=1d address-list=autohost
 /ip dns static add name=merchantpool1.epicgames.com address=95.182.120.241 ttl=1d address-list=autohost
 /ip dns static add name=ol.epicgames.com address=95.182.120.241 ttl=1d address-list=autohost
-/ip dns static add name=on.epicgames.com address=95.182.120.241 ttl=1d address-list=autohost
 /ip dns static add name=payment-website-pci.ol.epicgames.com address=95.182.120.241 ttl=1d address-list=autohost
 /ip dns static add name=perf.store.on.epicgames.com address=95.182.120.241 ttl=1d address-list=autohost
 /ip dns static add name=store.epicgames.com address=95.182.120.241 ttl=1d address-list=autohost
@@ -434,4 +433,4 @@
 /ip dns static add name=tracking.epicgames.com address=95.182.120.241 ttl=1d address-list=autohost
 /ip dns static add name=windsurf-telemetry.codeium.com address=95.182.120.241 ttl=1d address-list=autohost
 /ip dns static add name=windsurf.com address=95.182.120.241 ttl=1d address-list=autohost
-/log info "[update-hosts] Added 435 entries"
+/log info "[update-hosts] Added 434 entries"
