@@ -202,7 +202,6 @@
 /ip dns static add name=game.squadbustersgame.com address=108.61.167.26 ttl=1d address-list=autohost
 /ip dns static add name=ntc.party address=130.255.77.28 ttl=1d address-list=autohost
 /ip dns static add name=accounts.supercell.com address=144.31.14.104 ttl=1d address-list=autohost
-/ip dns static add name=aet.spotify.com address=144.31.14.104 ttl=1d address-list=autohost
 /ip dns static add name=api.github.com address=144.31.14.104 ttl=1d address-list=autohost
 /ip dns static add name=api.individual.githubcopilot.com address=144.31.14.104 ttl=1d address-list=autohost
 /ip dns static add name=api.tidal.com address=144.31.14.104 ttl=1d address-list=autohost
@@ -222,7 +221,10 @@
 /ip dns static add name=resources.tidal.com address=144.31.14.104 ttl=1d address-list=autohost
 /ip dns static add name=security.id.supercell.com address=144.31.14.104 ttl=1d address-list=autohost
 /ip dns static add name=store.supercell.com address=144.31.14.104 ttl=1d address-list=autohost
-/ip dns static add name=www.tiktok.com address=144.31.14.104 ttl=1d address-list=autohost
+/ip dns static add name=windsurf-telemetry.codeium.com address=144.31.14.104 ttl=1d address-list=autohost
+/ip dns static add name=www.canva.com address=144.31.14.104 ttl=1d address-list=autohost
+/ip dns static add name=www.dyson.com address=144.31.14.104 ttl=1d address-list=autohost
+/ip dns static add name=www.dyson.fr address=144.31.14.104 ttl=1d address-list=autohost
 /ip dns static add name=b.i.instagram.com address=157.240.245.174 ttl=1d address-list=autohost
 /ip dns static add name=help.instagram.com address=157.240.245.174 ttl=1d address-list=autohost
 /ip dns static add name=instagram.com address=157.240.245.174 ttl=1d address-list=autohost
@@ -255,6 +257,7 @@
 /ip dns static add name=accounts.scdn.co address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=accounts.spotify.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=accounts.x.ai address=45.155.204.190 ttl=1d address-list=autohost
+/ip dns static add name=aet.spotify.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=aisandbox-pa.googleapis.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=aistudio.google.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=aitestkitchen.withgoogle.com address=45.155.204.190 ttl=1d address-list=autohost
@@ -313,6 +316,7 @@
 /ip dns static add name=dyson.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=ecosec.on.epicgames.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=edgeservices.bing.com address=45.155.204.190 ttl=1d address-list=autohost
+/ip dns static add name=elevenlabs.io address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=elevenreader.io address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=encore.scdn.co address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=epicgames.com address=45.155.204.190 ttl=1d address-list=autohost
@@ -348,6 +352,7 @@
 /ip dns static add name=launcher.store.epicgames.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=library-service.live.use1a.on.epicgames.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=lightswitch-public-service-prod06.ol.epicgames.com address=45.155.204.190 ttl=1d address-list=autohost
+/ip dns static add name=linear.app address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=login-wall.deepl.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=login5.spotify.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=lumo.proton.me address=45.155.204.190 ttl=1d address-list=autohost
@@ -364,6 +369,7 @@
 /ip dns static add name=operator.chatgpt.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=ott.deepl.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=pass.proton.me address=45.155.204.190 ttl=1d address-list=autohost
+/ip dns static add name=patreon.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=payment-website-pci.ol.epicgames.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=payment.deezer.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=perf.store.on.epicgames.com address=45.155.204.190 ttl=1d address-list=autohost
@@ -376,7 +382,6 @@
 /ip dns static add name=pump.fun address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=rewards.bing.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=robinfrontend-pa.googleapis.com address=45.155.204.190 ttl=1d address-list=autohost
-/ip dns static add name=s.deepl.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=s.linear.app address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=server.codeium.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=shield.deepl.com address=45.155.204.190 ttl=1d address-list=autohost
@@ -409,17 +414,18 @@
 /ip dns static add name=webchannel-alkalimakersuite-pa.clients6.google.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=webrtc.chatgpt.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=windsurf-stable.codeium.com address=45.155.204.190 ttl=1d address-list=autohost
+/ip dns static add name=windsurf.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=withgoogle.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=write-free.www.deepl.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=www-growth.scdn.co address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=www.autodesk.com address=45.155.204.190 ttl=1d address-list=autohost
-/ip dns static add name=www.canva.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=www.deepl.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=www.deezer.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=www.dell.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=www.elgato.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=www.intel.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=www.notion.so address=45.155.204.190 ttl=1d address-list=autohost
+/ip dns static add name=www.patreon.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=www.qwant.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=www.spotify.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=www2.deepl.com address=45.155.204.190 ttl=1d address-list=autohost
@@ -429,8 +435,13 @@
 /ip dns static add name=game.clashroyaleapp.com address=45.95.233.23 ttl=1d address-list=autohost
 /ip dns static add name=game.mocogame.com address=45.95.233.23 ttl=1d address-list=autohost
 /ip dns static add name=tracker.openbittorrent.com address=52.223.13.41 ttl=1d address-list=autohost
-/ip dns static add name=elevenlabs.io address=95.182.120.241 ttl=1d address-list=autohost
-/ip dns static add name=linear.app address=95.182.120.241 ttl=1d address-list=autohost
-/ip dns static add name=windsurf-telemetry.codeium.com address=95.182.120.241 ttl=1d address-list=autohost
-/ip dns static add name=windsurf.com address=95.182.120.241 ttl=1d address-list=autohost
-/log info "[update-hosts] Added 434 entries"
+/ip dns static add name=onelink.me address=95.182.120.241 ttl=1d address-list=autohost
+/ip dns static add name=snssdk1233.onelink.me address=95.182.120.241 ttl=1d address-list=autohost
+/ip dns static add name=tiktok.com address=95.182.120.241 ttl=1d address-list=autohost
+/ip dns static add name=tiktokcdn-eu.com address=95.182.120.241 ttl=1d address-list=autohost
+/ip dns static add name=tiktokcdn.com address=95.182.120.241 ttl=1d address-list=autohost
+/ip dns static add name=tiktokv.com address=95.182.120.241 ttl=1d address-list=autohost
+/ip dns static add name=tiktokv.eu address=95.182.120.241 ttl=1d address-list=autohost
+/ip dns static add name=tiktokw.eu address=95.182.120.241 ttl=1d address-list=autohost
+/ip dns static add name=ttwstatic.com address=95.182.120.241 ttl=1d address-list=autohost
+/log info "[update-hosts] Added 445 entries"
