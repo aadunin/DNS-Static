@@ -319,9 +319,8 @@
 45.155.204.190 framer.com
 
 # GitHub Copilot
-144.31.14.104 api.github.com
-144.31.14.104 api.individual.githubcopilot.com
-144.31.14.104 proxy.individual.githubcopilot.com
+45.155.204.190 api.individual.githubcopilot.com
+45.155.204.190 proxy.individual.githubcopilot.com
 
 # Google
 45.155.204.190 aisandbox-pa.googleapis.com
@@ -459,12 +458,8 @@
 149.154.167.220 api.telegram.org
 149.154.167.220 flora.web.telegram.org
 149.154.167.220 kws1-1.web.telegram.org
-149.154.167.220 kws1-1.web.telegram.org
-149.154.167.220 kws1.web.telegram.org
 149.154.167.220 kws1.web.telegram.org
 149.154.167.220 kws2-1.web.telegram.org
-149.154.167.220 kws2-1.web.telegram.org
-149.154.167.220 kws2.web.telegram.org
 149.154.167.220 kws2.web.telegram.org
 149.154.167.220 kws4-1.web.telegram.org
 149.154.167.220 kws4.web.telegram.org
@@ -476,12 +471,9 @@
 149.154.167.220 td.telegram.org
 149.154.167.220 telegram.dog
 149.154.167.220 telegram.me
-149.154.167.220 telegram.me
 149.154.167.220 telegram.org
 149.154.167.220 telegram.space
 149.154.167.220 telesco.pe
-149.154.167.220 telesco.pe
-149.154.167.220 tg.dev
 149.154.167.220 tg.dev
 149.154.167.220 venus.web.telegram.org
 149.154.167.220 web.telegram.org

@@ -202,8 +202,6 @@
 /ip dns static add name=game.squadbustersgame.com address=108.61.167.26 ttl=1d address-list=autohost
 /ip dns static add name=ntc.party address=130.255.77.28 ttl=1d address-list=autohost
 /ip dns static add name=accounts.supercell.com address=144.31.14.104 ttl=1d address-list=autohost
-/ip dns static add name=api.github.com address=144.31.14.104 ttl=1d address-list=autohost
-/ip dns static add name=api.individual.githubcopilot.com address=144.31.14.104 ttl=1d address-list=autohost
 /ip dns static add name=api.tidal.com address=144.31.14.104 ttl=1d address-list=autohost
 /ip dns static add name=auth.tidal.com address=144.31.14.104 ttl=1d address-list=autohost
 /ip dns static add name=cdn.id.supercell.com address=144.31.14.104 ttl=1d address-list=autohost
@@ -217,7 +215,6 @@
 /ip dns static add name=link.tidal.com address=144.31.14.104 ttl=1d address-list=autohost
 /ip dns static add name=listen.tidal.com address=144.31.14.104 ttl=1d address-list=autohost
 /ip dns static add name=login.tidal.com address=144.31.14.104 ttl=1d address-list=autohost
-/ip dns static add name=proxy.individual.githubcopilot.com address=144.31.14.104 ttl=1d address-list=autohost
 /ip dns static add name=resources.tidal.com address=144.31.14.104 ttl=1d address-list=autohost
 /ip dns static add name=security.id.supercell.com address=144.31.14.104 ttl=1d address-list=autohost
 /ip dns static add name=store.supercell.com address=144.31.14.104 ttl=1d address-list=autohost
@@ -302,6 +299,7 @@
 /ip dns static add name=api.epicgames.dev address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=api.fitbit.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=api.imgur.com address=45.155.204.190 ttl=1d address-list=autohost
+/ip dns static add name=api.individual.githubcopilot.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=api.jetbrains.ai address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=api.manus.im address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=api.openai.com address=45.155.204.190 ttl=1d address-list=autohost
@@ -407,6 +405,7 @@
 /ip dns static add name=proactivebackend-pa.googleapis.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=profile.broadcom.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=proton.me address=45.155.204.190 ttl=1d address-list=autohost
+/ip dns static add name=proxy.individual.githubcopilot.com address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=public.linear.app address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=pump.fun address=45.155.204.190 ttl=1d address-list=autohost
 /ip dns static add name=rewards.bing.com address=45.155.204.190 ttl=1d address-list=autohost
@@ -474,4 +473,4 @@
 /ip dns static add name=tiktokv.eu address=95.182.120.241 ttl=1d address-list=autohost
 /ip dns static add name=tiktokw.eu address=95.182.120.241 ttl=1d address-list=autohost
 /ip dns static add name=ttwstatic.com address=95.182.120.241 ttl=1d address-list=autohost
-/log info "[update-hosts] Added 475 entries"
+/log info "[update-hosts] Added 474 entries"
