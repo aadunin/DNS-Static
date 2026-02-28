@@ -223,6 +223,9 @@
 /ip dns static add name=www.dyson.com address=144.31.14.104 ttl=1d address-list=autohost
 /ip dns static add name=www.dyson.fr address=144.31.14.104 ttl=1d address-list=autohost
 /ip dns static add name=api.telegram.org address=149.154.167.220 ttl=1d address-list=autohost
+/ip dns static add name=aurora-1.web.telegram.org address=149.154.167.220 ttl=1d address-list=autohost
+/ip dns static add name=aurora.web.telegram.org address=149.154.167.220 ttl=1d address-list=autohost
+/ip dns static add name=flora-1.web.telegram.org address=149.154.167.220 ttl=1d address-list=autohost
 /ip dns static add name=flora.web.telegram.org address=149.154.167.220 ttl=1d address-list=autohost
 /ip dns static add name=kws1-1.web.telegram.org address=149.154.167.220 ttl=1d address-list=autohost
 /ip dns static add name=kws1.web.telegram.org address=149.154.167.220 ttl=1d address-list=autohost
@@ -242,7 +245,10 @@
 /ip dns static add name=telegram.space address=149.154.167.220 ttl=1d address-list=autohost
 /ip dns static add name=telesco.pe address=149.154.167.220 ttl=1d address-list=autohost
 /ip dns static add name=tg.dev address=149.154.167.220 ttl=1d address-list=autohost
+/ip dns static add name=venus-1.web.telegram.org address=149.154.167.220 ttl=1d address-list=autohost
 /ip dns static add name=venus.web.telegram.org address=149.154.167.220 ttl=1d address-list=autohost
+/ip dns static add name=vesta-1.web.telegram.org address=149.154.167.220 ttl=1d address-list=autohost
+/ip dns static add name=vesta.web.telegram.org address=149.154.167.220 ttl=1d address-list=autohost
 /ip dns static add name=web.telegram.org address=149.154.167.220 ttl=1d address-list=autohost
 /ip dns static add name=zws1-1.web.telegram.org address=149.154.167.220 ttl=1d address-list=autohost
 /ip dns static add name=zws1.web.telegram.org address=149.154.167.220 ttl=1d address-list=autohost
@@ -473,4 +479,4 @@
 /ip dns static add name=tiktokv.eu address=95.182.120.241 ttl=1d address-list=autohost
 /ip dns static add name=tiktokw.eu address=95.182.120.241 ttl=1d address-list=autohost
 /ip dns static add name=ttwstatic.com address=95.182.120.241 ttl=1d address-list=autohost
-/log info "[update-hosts] Added 474 entries"
+/log info "[update-hosts] Added 480 entries"
