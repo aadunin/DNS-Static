@@ -234,6 +234,7 @@
 /ip dns static add name=game.brawlstarsgame.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=test.dns.malw.link address=185.31.40.18 ttl=1d address-list=autohost
 /ip dns static add name=2no.co address=192.0.2.1 ttl=1d address-list=autohost
+/ip dns static add name=ad.mail.ru address=192.0.2.1 ttl=1d address-list=autohost
 /ip dns static add name=apptracer.ru address=192.0.2.1 ttl=1d address-list=autohost
 /ip dns static add name=bc.ax address=192.0.2.1 ttl=1d address-list=autohost
 /ip dns static add name=ed.tc address=192.0.2.1 ttl=1d address-list=autohost
@@ -243,8 +244,11 @@
 /ip dns static add name=iplog.co address=192.0.2.1 ttl=1d address-list=autohost
 /ip dns static add name=iplogger.org address=192.0.2.1 ttl=1d address-list=autohost
 /ip dns static add name=maper.info address=192.0.2.1 ttl=1d address-list=autohost
+/ip dns static add name=r.mail.ru address=192.0.2.1 ttl=1d address-list=autohost
 /ip dns static add name=sdk-api.apptracer.ru address=192.0.2.1 ttl=1d address-list=autohost
+/ip dns static add name=top-fwz1.mail.ru address=192.0.2.1 ttl=1d address-list=autohost
 /ip dns static add name=tracker-api.vk-analytics.ru address=192.0.2.1 ttl=1d address-list=autohost
+/ip dns static add name=tracker.my.com address=192.0.2.1 ttl=1d address-list=autohost
 /ip dns static add name=vk-analytics.ru address=192.0.2.1 ttl=1d address-list=autohost
 /ip dns static add name=wl.gl address=192.0.2.1 ttl=1d address-list=autohost
 /ip dns static add name=yip.su address=192.0.2.1 ttl=1d address-list=autohost
@@ -262,6 +266,7 @@
 /ip dns static add name=game.clashroyaleapp.com address=62.133.62.97 ttl=1d address-list=autohost
 /ip dns static add name=game.mocogame.com address=62.133.62.97 ttl=1d address-list=autohost
 /ip dns static add name=gemini.google.com address=62.133.62.97 ttl=1d address-list=autohost
+/ip dns static add name=gemini.gstatic.com address=62.133.62.97 ttl=1d address-list=autohost
 /ip dns static add name=generativelanguage.googleapis.com address=62.133.62.97 ttl=1d address-list=autohost
 /ip dns static add name=google-analytics.com address=62.133.62.97 ttl=1d address-list=autohost
 /ip dns static add name=google.com address=62.133.62.97 ttl=1d address-list=autohost
@@ -463,4 +468,4 @@
 /ip dns static add name=xgpuweb.gssv-play-prod.xboxlive.com address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=xgpuwebf2p.gssv-play-prod.xboxlive.com address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=xsts.auth.xboxlive.com address=77.239.114.0 ttl=1d address-list=autohost
-/log info "[update-hosts] Added 464 entries"
+/log info "[update-hosts] Added 469 entries"
