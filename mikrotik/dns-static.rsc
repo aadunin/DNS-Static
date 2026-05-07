@@ -1,6 +1,8 @@
 /ip dns static remove [find address-list="autohost"]
 /ip dns static add name=controlplane.tailscale.com address=103.27.157.38 ttl=1d address-list=autohost
 /ip dns static add name=static-assets-1.truthsocial.com address=103.27.157.38 ttl=1d address-list=autohost
+/ip dns static add name=truthsocial.com address=103.27.157.38 ttl=1d address-list=autohost
+/ip dns static add name=web.archive.org address=103.27.157.38 ttl=1d address-list=autohost
 /ip dns static add name=finland10000.discord.media address=104.25.158.178 ttl=1d address-list=autohost
 /ip dns static add name=finland10001.discord.media address=104.25.158.178 ttl=1d address-list=autohost
 /ip dns static add name=finland10002.discord.media address=104.25.158.178 ttl=1d address-list=autohost
@@ -278,8 +280,8 @@
 /ip dns static add name=proactivebackend-pa.googleapis.com address=62.133.62.97 ttl=1d address-list=autohost
 /ip dns static add name=robinfrontend-pa.googleapis.com address=62.133.62.97 ttl=1d address-list=autohost
 /ip dns static add name=stitch.withgoogle.com address=62.133.62.97 ttl=1d address-list=autohost
-/ip dns static add name=sydney.bing.com address=62.133.62.97 ttl=1d address-list=autohost
 /ip dns static add name=webchannel-alkalimakersuite-pa.clients6.google.com address=62.133.62.97 ttl=1d address-list=autohost
+/ip dns static add name=a.claude.ai address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=ab.chatgpt.com address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=account-api.proton.me address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=account.jetbrains.com address=77.239.114.0 ttl=1d address-list=autohost
@@ -322,6 +324,7 @@
 /ip dns static add name=calendar.proton.me address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=cdn.id.supercell.com address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=cdn.oaistatic.com address=77.239.114.0 ttl=1d address-list=autohost
+/ip dns static add name=cdn.platform.openai.com address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=chatgpt.com address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=checkout.www.deepl.com address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=clashofclans.inbox.supercell.com address=77.239.114.0 ttl=1d address-list=autohost
@@ -339,6 +342,7 @@
 /ip dns static add name=deepl.com address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=deezer.com address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=developer.nvidia.com address=77.239.114.0 ttl=1d address-list=autohost
+/ip dns static add name=developers.openai.com address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=dict.deepl.com address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=docs.proton.me address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=download.jetbrains.com address=77.239.114.0 ttl=1d address-list=autohost
@@ -399,6 +403,7 @@
 /ip dns static add name=payment-website-pci.ol.epicgames.com address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=payment.deezer.com address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=perf.store.on.epicgames.com address=77.239.114.0 ttl=1d address-list=autohost
+/ip dns static add name=platform.claude.com address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=platform.openai.com address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=plugins.jetbrains.com address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=profile.broadcom.com address=77.239.114.0 ttl=1d address-list=autohost
@@ -445,7 +450,6 @@
 /ip dns static add name=wallet.proton.me address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=weather.com address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=web-backend.codeium.com address=77.239.114.0 ttl=1d address-list=autohost
-/ip dns static add name=web.archive.org address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=webrtc.chatgpt.com address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=windsurf-stable.codeium.com address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=windsurf-telemetry.codeium.com address=77.239.114.0 ttl=1d address-list=autohost
@@ -468,4 +472,4 @@
 /ip dns static add name=xgpuweb.gssv-play-prod.xboxlive.com address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=xgpuwebf2p.gssv-play-prod.xboxlive.com address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=xsts.auth.xboxlive.com address=77.239.114.0 ttl=1d address-list=autohost
-/log info "[update-hosts] Added 469 entries"
+/log info "[update-hosts] Added 473 entries"
