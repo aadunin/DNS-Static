@@ -206,10 +206,19 @@
 /ip dns static add name=game.squadbustersgame.com address=108.61.167.26 ttl=1d address-list=autohost
 /ip dns static add name=ntc.party address=130.255.77.28 ttl=1d address-list=autohost
 /ip dns static add name=api.telegram.org address=149.154.167.220 ttl=1d address-list=autohost
+/ip dns static add name=cdn.telesco.pe address=149.154.167.220 ttl=1d address-list=autohost
+/ip dns static add name=cdn1.telesco.pe address=149.154.167.220 ttl=1d address-list=autohost
+/ip dns static add name=cdn2.telesco.pe address=149.154.167.220 ttl=1d address-list=autohost
+/ip dns static add name=cdn3.telesco.pe address=149.154.167.220 ttl=1d address-list=autohost
+/ip dns static add name=cdn4.telesco.pe address=149.154.167.220 ttl=1d address-list=autohost
+/ip dns static add name=cdn5.telesco.pe address=149.154.167.220 ttl=1d address-list=autohost
+/ip dns static add name=core.telegram.org address=149.154.167.220 ttl=1d address-list=autohost
 /ip dns static add name=kws2-1.web.telegram.org address=149.154.167.220 ttl=1d address-list=autohost
 /ip dns static add name=kws2.web.telegram.org address=149.154.167.220 ttl=1d address-list=autohost
 /ip dns static add name=kws4-1.web.telegram.org address=149.154.167.220 ttl=1d address-list=autohost
 /ip dns static add name=kws4.web.telegram.org address=149.154.167.220 ttl=1d address-list=autohost
+/ip dns static add name=my.telegram.org address=149.154.167.220 ttl=1d address-list=autohost
+/ip dns static add name=oauth.telegram.org address=149.154.167.220 ttl=1d address-list=autohost
 /ip dns static add name=t.me address=149.154.167.220 ttl=1d address-list=autohost
 /ip dns static add name=td.telegram.org address=149.154.167.220 ttl=1d address-list=autohost
 /ip dns static add name=telegram.dog address=149.154.167.220 ttl=1d address-list=autohost
@@ -233,6 +242,13 @@
 /ip dns static add name=www.instagram.com address=157.240.245.174 ttl=1d address-list=autohost
 /ip dns static add name=z-p42-chat-e2ee-ig.facebook.com address=157.240.245.174 ttl=1d address-list=autohost
 /ip dns static add name=d.rutor.info address=172.64.33.155 ttl=1d address-list=autohost
+/ip dns static add name=avatars.githubusercontent.com address=185.199.108.133 ttl=1d address-list=autohost
+/ip dns static add name=private-user-images.githubusercontent.com address=185.199.108.133 ttl=1d address-list=autohost
+/ip dns static add name=api.individual.githubcopilot.com address=185.199.109.133 ttl=1d address-list=autohost
+/ip dns static add name=githubassets.com address=185.199.109.133 ttl=1d address-list=autohost
+/ip dns static add name=proxy.individual.githubcopilot.com address=185.199.109.133 ttl=1d address-list=autohost
+/ip dns static add name=raw.githubusercontent.com address=185.199.109.133 ttl=1d address-list=autohost
+/ip dns static add name=release-assets.githubusercontent.com address=185.199.109.133 ttl=1d address-list=autohost
 /ip dns static add name=game.brawlstarsgame.com address=185.246.223.127 ttl=1d address-list=autohost
 /ip dns static add name=test.dns.malw.link address=185.31.40.18 ttl=1d address-list=autohost
 /ip dns static add name=2no.co address=192.0.2.1 ttl=1d address-list=autohost
@@ -303,7 +319,6 @@
 /ip dns static add name=api.epicgames.dev address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=api.github.com address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=api.imgur.com address=77.239.114.0 ttl=1d address-list=autohost
-/ip dns static add name=api.individual.githubcopilot.com address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=api.jetbrains.ai address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=api.manus.im address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=api.openai.com address=77.239.114.0 ttl=1d address-list=autohost
@@ -408,7 +423,6 @@
 /ip dns static add name=plugins.jetbrains.com address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=profile.broadcom.com address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=proton.me address=77.239.114.0 ttl=1d address-list=autohost
-/ip dns static add name=proxy.individual.githubcopilot.com address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=public.linear.app address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=pump.fun address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=resources.tidal.com address=77.239.114.0 ttl=1d address-list=autohost
@@ -472,4 +486,4 @@
 /ip dns static add name=xgpuweb.gssv-play-prod.xboxlive.com address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=xgpuwebf2p.gssv-play-prod.xboxlive.com address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=xsts.auth.xboxlive.com address=77.239.114.0 ttl=1d address-list=autohost
-/log info "[update-hosts] Added 473 entries"
+/log info "[update-hosts] Added 487 entries"
