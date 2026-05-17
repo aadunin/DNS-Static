@@ -243,6 +243,7 @@
 /ip dns static add name=z-p42-chat-e2ee-ig.facebook.com address=157.240.245.174 ttl=1d address-list=autohost
 /ip dns static add name=d.rutor.info address=172.64.33.155 ttl=1d address-list=autohost
 /ip dns static add name=avatars.githubusercontent.com address=185.199.108.133 ttl=1d address-list=autohost
+/ip dns static add name=gist.githubusercontent.com address=185.199.108.133 ttl=1d address-list=autohost
 /ip dns static add name=private-user-images.githubusercontent.com address=185.199.108.133 ttl=1d address-list=autohost
 /ip dns static add name=api.individual.githubcopilot.com address=185.199.109.133 ttl=1d address-list=autohost
 /ip dns static add name=githubassets.com address=185.199.109.133 ttl=1d address-list=autohost
@@ -486,4 +487,4 @@
 /ip dns static add name=xgpuweb.gssv-play-prod.xboxlive.com address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=xgpuwebf2p.gssv-play-prod.xboxlive.com address=77.239.114.0 ttl=1d address-list=autohost
 /ip dns static add name=xsts.auth.xboxlive.com address=77.239.114.0 ttl=1d address-list=autohost
-/log info "[update-hosts] Added 487 entries"
+/log info "[update-hosts] Added 488 entries"
